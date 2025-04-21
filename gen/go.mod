@@ -1,4 +1,4 @@
-module gen
+module github.com/Azat201003/eduflow_service_api/blob/main/gen
 
 go 1.23.7
 

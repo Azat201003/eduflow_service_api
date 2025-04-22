@@ -1,4 +1,4 @@
-module github.com/Azat201003/eduflow_service_api/gen/v0.1.1
+module github.com/Azat201003/eduflow_service_api/gen/v0.1.3
 
 go 1.23.7
 

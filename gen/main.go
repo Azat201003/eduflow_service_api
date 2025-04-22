@@ -1,6 +1,0 @@
-package gen
-
-func Main() {
-	
-}
-

@@ -1,21 +1,32 @@
 package config
 
+import "errors"
+
 type Service struct {
 	Name        string `yaml:"name"`
 	Description string `yaml:"description"`
 	Host        string `yaml:"host"`
-	Port        int    `yaml:"port"`
-	ID          int    `yaml:"id"`
+	Port        uint   `yaml:"port"`
+	ID          uint   `yaml:"id"`
 	DB_user     string `yaml:"db_user"`
 	DB          string `yaml:"db"`
 }
 
 type Database struct {
 	Host string `yaml:"host"`
-	Port int    `yaml:"port"`
+	Port uint   `yaml:"port"`
 }
 
 type Config struct {
 	Services []*Service `yaml:"services"`
 	Database Database   `yaml:"db"`
+}
+
+func (config *Config) GetServiceById(id uint) (*Service, error) {
+	for _, service := range config.Services {
+		if service.ID == id {
+			return service, nil
+		}
+	}
+	return nil, errors.New("Not found")
 }

@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetting(t *testing.T) {
-	conf, err := GetConfig()
+	conf, err := GetConfig("../config.yaml")
 	if err != nil {
 		log.Fatalf("Error with getting config: %v", err)
 	}

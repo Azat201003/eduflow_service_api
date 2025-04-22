@@ -2,18 +2,12 @@ package config
 
 import (
 	"os"
-	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
 
-func GetConfig() (*Config, error) {
+func GetConfig(path string) (*Config, error) {
 	config := new(Config)
-	pwd, err := os.Getwd()
-	if err != nil {
-		return nil, err
-	}
-	path := (filepath.Dir(pwd)) + "/config.yaml"
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err

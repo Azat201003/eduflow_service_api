@@ -2,14 +2,20 @@ package config
 
 import "errors"
 
+type DBConnect struct {
+	user     string `yaml:"user"`
+	db       string `yaml:"database"`
+	schema   string `yaml:"schema"`
+	password string `yaml:"password"`
+}
+
 type Service struct {
-	Name        string `yaml:"name"`
-	Description string `yaml:"description"`
-	Host        string `yaml:"host"`
-	Port        uint   `yaml:"port"`
-	ID          uint   `yaml:"id"`
-	DB_user     string `yaml:"db_user"`
-	DB          string `yaml:"db"`
+	Name        string     `yaml:"name"`
+	Description string     `yaml:"description"`
+	Host        string     `yaml:"host"`
+	Port        uint       `yaml:"port"`
+	ID          uint       `yaml:"id"`
+	Connect     *DBConnect `yaml:"db"`
 }
 
 type Database struct {
@@ -19,7 +25,7 @@ type Database struct {
 
 type Config struct {
 	Services []*Service `yaml:"services"`
-	Database Database   `yaml:"db"`
+	Database *Database  `yaml:"db"`
 }
 
 func (config *Config) GetServiceById(id uint) (*Service, error) {

@@ -1,0 +1,17 @@
+---
+services:
+  - service:
+    name: User
+    description: Auth and user list manipulating service
+    host: localhost
+    port: 1000
+    id: 0
+    db:
+      user: eduflow_user
+      database: eduflow_user
+      schema: eduflow_user
+      password: "1234"
+db:
+  host: localhost
+  port: 5432
+  

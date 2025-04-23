@@ -3,10 +3,10 @@ package config
 import "errors"
 
 type DBConnect struct {
-	user     string `yaml:"user"`
-	db       string `yaml:"database"`
-	schema   string `yaml:"schema"`
-	password string `yaml:"password"`
+	User     string `yaml:"user"`
+	DB       string `yaml:"database"`
+	Schema   string `yaml:"schema"`
+	Password string `yaml:"password"`
 }
 
 type Service struct {

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package summary;
+
+option go_package = "gen/summary";
+
+service SummaryService {
+    rpc GetSummaryById(Id) returns (Summary);
+    rpc GetAllSummary(Id) returns (stream Summary);
+}
+
+message Id {
+    uint64 id = 1;
+}
+
+message Summary {
+    string title = 1;
+    string description = 2;
+}

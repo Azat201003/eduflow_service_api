@@ -2,12 +2,13 @@ syntax = "proto3";
 
 package user;
 
-option go_package = "http://github.com/Azat201003/eduflow/src/user";
+option go_package = "gen/user";
 
 service UserService {
     rpc Register(Creditionals) returns (Token); // returns token
     rpc Login(Creditionals) returns (Token); // returns token
-    rpc GetById(Id) returns (User);
+    rpc GetUserById(Id) returns (User);
+    rpc GetUserByToken(Token) returns (User);
 }
 
 message Creditionals {
@@ -22,6 +23,7 @@ message Id {
 message User {
     int64 id = 1;
     string username = 2;
+    bool is_staff = 4;
 }
 
 message Token {

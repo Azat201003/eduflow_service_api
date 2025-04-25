@@ -21,7 +21,7 @@ message Id {
 }
 
 message User {
-    uint64 id = 1;
+    Id id = 1;
     string username = 2;
     bool is_staff = 4;
 }

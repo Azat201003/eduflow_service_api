@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion8
 const (
 	SummaryService_GetSummaryById_FullMethodName = "/summary.SummaryService/GetSummaryById"
 	SummaryService_GetAllSummary_FullMethodName  = "/summary.SummaryService/GetAllSummary"
+	SummaryService_CreateSummary_FullMethodName  = "/summary.SummaryService/CreateSummary"
 )
 
 // SummaryServiceClient is the client API for SummaryService service.
@@ -28,7 +29,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SummaryServiceClient interface {
 	GetSummaryById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Summary, error)
-	GetAllSummary(ctx context.Context, in *Id, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error)
+	GetAllSummary(ctx context.Context, in *Empty, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error)
+	CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type summaryServiceClient struct {
@@ -49,7 +51,7 @@ func (c *summaryServiceClient) GetSummaryById(ctx context.Context, in *Id, opts 
 	return out, nil
 }
 
-func (c *summaryServiceClient) GetAllSummary(ctx context.Context, in *Id, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error) {
+func (c *summaryServiceClient) GetAllSummary(ctx context.Context, in *Empty, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &SummaryService_ServiceDesc.Streams[0], SummaryService_GetAllSummary_FullMethodName, cOpts...)
 	if err != nil {
@@ -82,12 +84,23 @@ func (x *summaryServiceGetAllSummaryClient) Recv() (*Summary, error) {
 	return m, nil
 }
 
+func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, SummaryService_CreateSummary_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SummaryServiceServer is the server API for SummaryService service.
 // All implementations must embed UnimplementedSummaryServiceServer
 // for forward compatibility
 type SummaryServiceServer interface {
 	GetSummaryById(context.Context, *Id) (*Summary, error)
-	GetAllSummary(*Id, SummaryService_GetAllSummaryServer) error
+	GetAllSummary(*Empty, SummaryService_GetAllSummaryServer) error
+	CreateSummary(context.Context, *Summary) (*Empty, error)
 	mustEmbedUnimplementedSummaryServiceServer()
 }
 
@@ -98,8 +111,11 @@ type UnimplementedSummaryServiceServer struct {
 func (UnimplementedSummaryServiceServer) GetSummaryById(context.Context, *Id) (*Summary, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSummaryById not implemented")
 }
-func (UnimplementedSummaryServiceServer) GetAllSummary(*Id, SummaryService_GetAllSummaryServer) error {
+func (UnimplementedSummaryServiceServer) GetAllSummary(*Empty, SummaryService_GetAllSummaryServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetAllSummary not implemented")
+}
+func (UnimplementedSummaryServiceServer) CreateSummary(context.Context, *Summary) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSummary not implemented")
 }
 func (UnimplementedSummaryServiceServer) mustEmbedUnimplementedSummaryServiceServer() {}
 
@@ -133,7 +149,7 @@ func _SummaryService_GetSummaryById_Handler(srv interface{}, ctx context.Context
 }
 
 func _SummaryService_GetAllSummary_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Id)
+	m := new(Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -153,6 +169,24 @@ func (x *summaryServiceGetAllSummaryServer) Send(m *Summary) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _SummaryService_CreateSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Summary)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SummaryServiceServer).CreateSummary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SummaryService_CreateSummary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SummaryServiceServer).CreateSummary(ctx, req.(*Summary))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SummaryService_ServiceDesc is the grpc.ServiceDesc for SummaryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -163,6 +197,10 @@ var SummaryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSummaryById",
 			Handler:    _SummaryService_GetSummaryById_Handler,
+		},
+		{
+			MethodName: "CreateSummary",
+			Handler:    _SummaryService_CreateSummary_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

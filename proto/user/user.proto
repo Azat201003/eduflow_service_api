@@ -17,11 +17,11 @@ message Creditionals {
 }
 
 message Id {
-    int64 id = 1;
+    uint64 id = 1;
 }
 
 message User {
-    int64 id = 1;
+    uint64 id = 1;
     string username = 2;
     bool is_staff = 4;
 }

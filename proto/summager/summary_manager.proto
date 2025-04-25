@@ -1,0 +1,26 @@
+syntax = "proto3";
+package summager;
+
+option go_package = "gen/summager";
+
+service SummaryManagerService {
+    rpc UploadSummary(stream SummarySendRequest) returns (SummarySendResponse);
+    rpc DownloadSummary(SummaryReadRequest) returns (stream SummaryReadResponse);
+}
+
+message SummarySendRequest {
+    string file_path = 1;
+    bytes content = 2;
+}
+
+message SummarySendResponse {
+    string message = 1;
+}
+
+message SummaryReadRequest {
+    string file_path = 1;
+}
+
+message SummaryReadResponse {
+    bytes content = 2;
+}

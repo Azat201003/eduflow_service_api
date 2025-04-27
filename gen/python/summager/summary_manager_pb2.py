@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"2\n\x07Request\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x14\n\x0c\x63hunk_length\x18\x02 \x01(\x03\"\x18\n\x05\x43hunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1b\n\x08Response\x12\x0f\n\x07message\x18\x01 \x01(\t2\x88\x01\n\x15SummaryManagerService\x12\x36\n\rUploadSummary\x12\x0f.summager.Chunk\x1a\x12.summager.Response(\x01\x12\x37\n\x0f\x44ownloadSummary\x12\x11.summager.Request\x1a\x0f.summager.Chunk0\x01\x42\x11Z\x0fgen/go/summagerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"2\n\x07Request\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x14\n\x0c\x63hunk_length\x18\x02 \x01(\x03\"\x18\n\x05\x43hunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"R\n\x0c\x43hunkRequest\x12\x1e\n\x05\x63hunk\x18\x01 \x01(\x0b\x32\x0f.summager.Chunk\x12\"\n\x07request\x18\x02 \x01(\x0b\x32\x11.summager.Request\"\x1b\n\x08Response\x12\x0f\n\x07message\x18\x01 \x01(\t2\x8f\x01\n\x15SummaryManagerService\x12=\n\rUploadSummary\x12\x16.summager.ChunkRequest\x1a\x12.summager.Response(\x01\x12\x37\n\x0f\x44ownloadSummary\x12\x11.summager.Request\x1a\x0f.summager.Chunk0\x01\x42\x11Z\x0fgen/go/summagerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,8 +36,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_REQUEST']._serialized_end=94
   _globals['_CHUNK']._serialized_start=96
   _globals['_CHUNK']._serialized_end=120
-  _globals['_RESPONSE']._serialized_start=122
-  _globals['_RESPONSE']._serialized_end=149
-  _globals['_SUMMARYMANAGERSERVICE']._serialized_start=152
-  _globals['_SUMMARYMANAGERSERVICE']._serialized_end=288
+  _globals['_CHUNKREQUEST']._serialized_start=122
+  _globals['_CHUNKREQUEST']._serialized_end=204
+  _globals['_RESPONSE']._serialized_start=206
+  _globals['_RESPONSE']._serialized_end=233
+  _globals['_SUMMARYMANAGERSERVICE']._serialized_start=236
+  _globals['_SUMMARYMANAGERSERVICE']._serialized_end=379
 # @@protoc_insertion_point(module_scope)

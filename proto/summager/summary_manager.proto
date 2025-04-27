@@ -4,7 +4,7 @@ package summager;
 option go_package = "gen/go/summager";
 
 service SummaryManagerService {
-    rpc UploadSummary(stream Chunk) returns (Response);
+    rpc UploadSummary(stream ChunkRequest) returns (Response);
     rpc DownloadSummary(Request) returns (stream Chunk);
 }
 
@@ -15,6 +15,11 @@ message Request {
 
 message Chunk {
     bytes content = 1;
+}
+
+message ChunkRequest {
+    Chunk chunk = 1;
+    Request request = 2;
 }
 
 message Response {

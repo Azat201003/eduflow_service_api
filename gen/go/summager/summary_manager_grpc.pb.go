@@ -50,7 +50,7 @@ func (c *summaryManagerServiceClient) UploadSummary(ctx context.Context, opts ..
 }
 
 type SummaryManagerService_UploadSummaryClient interface {
-	Send(*Chunk) error
+	Send(*ChunkRequest) error
 	CloseAndRecv() (*Response, error)
 	grpc.ClientStream
 }
@@ -59,7 +59,7 @@ type summaryManagerServiceUploadSummaryClient struct {
 	grpc.ClientStream
 }
 
-func (x *summaryManagerServiceUploadSummaryClient) Send(m *Chunk) error {
+func (x *summaryManagerServiceUploadSummaryClient) Send(m *ChunkRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
@@ -145,7 +145,7 @@ func _SummaryManagerService_UploadSummary_Handler(srv interface{}, stream grpc.S
 
 type SummaryManagerService_UploadSummaryServer interface {
 	SendAndClose(*Response) error
-	Recv() (*Chunk, error)
+	Recv() (*ChunkRequest, error)
 	grpc.ServerStream
 }
 
@@ -157,8 +157,8 @@ func (x *summaryManagerServiceUploadSummaryServer) SendAndClose(m *Response) err
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *summaryManagerServiceUploadSummaryServer) Recv() (*Chunk, error) {
-	m := new(Chunk)
+func (x *summaryManagerServiceUploadSummaryServer) Recv() (*ChunkRequest, error) {
+	m := new(ChunkRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}

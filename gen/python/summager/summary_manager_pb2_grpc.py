@@ -36,7 +36,7 @@ class SummaryManagerServiceStub(object):
         """
         self.UploadSummary = channel.stream_unary(
                 '/summager.SummaryManagerService/UploadSummary',
-                request_serializer=summager_dot_summary__manager__pb2.Chunk.SerializeToString,
+                request_serializer=summager_dot_summary__manager__pb2.ChunkRequest.SerializeToString,
                 response_deserializer=summager_dot_summary__manager__pb2.Response.FromString,
                 _registered_method=True)
         self.DownloadSummary = channel.unary_stream(
@@ -66,7 +66,7 @@ def add_SummaryManagerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'UploadSummary': grpc.stream_unary_rpc_method_handler(
                     servicer.UploadSummary,
-                    request_deserializer=summager_dot_summary__manager__pb2.Chunk.FromString,
+                    request_deserializer=summager_dot_summary__manager__pb2.ChunkRequest.FromString,
                     response_serializer=summager_dot_summary__manager__pb2.Response.SerializeToString,
             ),
             'DownloadSummary': grpc.unary_stream_rpc_method_handler(
@@ -100,7 +100,7 @@ class SummaryManagerService(object):
             request_iterator,
             target,
             '/summager.SummaryManagerService/UploadSummary',
-            summager_dot_summary__manager__pb2.Chunk.SerializeToString,
+            summager_dot_summary__manager__pb2.ChunkRequest.SerializeToString,
             summager_dot_summary__manager__pb2.Response.FromString,
             options,
             channel_credentials,

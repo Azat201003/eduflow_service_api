@@ -8,14 +8,12 @@ import (
 
 func GetConfig(path string) (*Config, error) {
 	config := new(Config)
-	f, err := os.Open(path)
+	f, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
-	decoder := yaml.NewDecoder(f)
+	err = yaml.Unmarshal(f, config)
 
-	err = decoder.Decode(config)
 	if err != nil {
 		return nil, err
 	}

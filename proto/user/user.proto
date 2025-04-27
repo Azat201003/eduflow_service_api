@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user;
 
-option go_package = "gen/user";
+option go_package = "gen/go/user";
 
 service UserService {
     rpc Register(Creditionals) returns (Token); // returns token

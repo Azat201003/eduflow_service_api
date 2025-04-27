@@ -24,14 +24,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"8\n\x12SummarySendRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"&\n\x13SummarySendResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"\'\n\x12SummaryReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\"&\n\x13SummaryReadResponse\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x32\xb9\x01\n\x15SummaryManagerService\x12N\n\rUploadSummary\x12\x1c.summager.SummarySendRequest\x1a\x1d.summager.SummarySendResponse(\x01\x12P\n\x0f\x44ownloadSummary\x12\x1c.summager.SummaryReadRequest\x1a\x1d.summager.SummaryReadResponse0\x01\x42\x0eZ\x0cgen/summagerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"8\n\x12SummarySendRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"&\n\x13SummarySendResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"\'\n\x12SummaryReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\"&\n\x13SummaryReadResponse\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x32\xb9\x01\n\x15SummaryManagerService\x12N\n\rUploadSummary\x12\x1c.summager.SummarySendRequest\x1a\x1d.summager.SummarySendResponse(\x01\x12P\n\x0f\x44ownloadSummary\x12\x1c.summager.SummaryReadRequest\x1a\x1d.summager.SummaryReadResponse0\x01\x42\x11Z\x0fgen/go/summagerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'summager.summary_manager_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z\014gen/summager'
+  _globals['DESCRIPTOR']._serialized_options = b'Z\017gen/go/summager'
   _globals['_SUMMARYSENDREQUEST']._serialized_start=44
   _globals['_SUMMARYSENDREQUEST']._serialized_end=100
   _globals['_SUMMARYSENDRESPONSE']._serialized_start=102

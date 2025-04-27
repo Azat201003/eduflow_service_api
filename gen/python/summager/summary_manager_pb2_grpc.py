@@ -36,13 +36,13 @@ class SummaryManagerServiceStub(object):
         """
         self.UploadSummary = channel.stream_unary(
                 '/summager.SummaryManagerService/UploadSummary',
-                request_serializer=summager_dot_summary__manager__pb2.SummarySendRequest.SerializeToString,
-                response_deserializer=summager_dot_summary__manager__pb2.SummarySendResponse.FromString,
+                request_serializer=summager_dot_summary__manager__pb2.Chunk.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.Response.FromString,
                 _registered_method=True)
         self.DownloadSummary = channel.unary_stream(
                 '/summager.SummaryManagerService/DownloadSummary',
-                request_serializer=summager_dot_summary__manager__pb2.SummaryReadRequest.SerializeToString,
-                response_deserializer=summager_dot_summary__manager__pb2.SummaryReadResponse.FromString,
+                request_serializer=summager_dot_summary__manager__pb2.Request.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.Chunk.FromString,
                 _registered_method=True)
 
 
@@ -66,13 +66,13 @@ def add_SummaryManagerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'UploadSummary': grpc.stream_unary_rpc_method_handler(
                     servicer.UploadSummary,
-                    request_deserializer=summager_dot_summary__manager__pb2.SummarySendRequest.FromString,
-                    response_serializer=summager_dot_summary__manager__pb2.SummarySendResponse.SerializeToString,
+                    request_deserializer=summager_dot_summary__manager__pb2.Chunk.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.Response.SerializeToString,
             ),
             'DownloadSummary': grpc.unary_stream_rpc_method_handler(
                     servicer.DownloadSummary,
-                    request_deserializer=summager_dot_summary__manager__pb2.SummaryReadRequest.FromString,
-                    response_serializer=summager_dot_summary__manager__pb2.SummaryReadResponse.SerializeToString,
+                    request_deserializer=summager_dot_summary__manager__pb2.Request.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.Chunk.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -100,8 +100,8 @@ class SummaryManagerService(object):
             request_iterator,
             target,
             '/summager.SummaryManagerService/UploadSummary',
-            summager_dot_summary__manager__pb2.SummarySendRequest.SerializeToString,
-            summager_dot_summary__manager__pb2.SummarySendResponse.FromString,
+            summager_dot_summary__manager__pb2.Chunk.SerializeToString,
+            summager_dot_summary__manager__pb2.Response.FromString,
             options,
             channel_credentials,
             insecure,
@@ -127,8 +127,8 @@ class SummaryManagerService(object):
             request,
             target,
             '/summager.SummaryManagerService/DownloadSummary',
-            summager_dot_summary__manager__pb2.SummaryReadRequest.SerializeToString,
-            summager_dot_summary__manager__pb2.SummaryReadResponse.FromString,
+            summager_dot_summary__manager__pb2.Request.SerializeToString,
+            summager_dot_summary__manager__pb2.Chunk.FromString,
             options,
             channel_credentials,
             insecure,

@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SummaryManagerServiceClient interface {
 	UploadSummary(ctx context.Context, opts ...grpc.CallOption) (SummaryManagerService_UploadSummaryClient, error)
-	DownloadSummary(ctx context.Context, in *SummaryReadRequest, opts ...grpc.CallOption) (SummaryManagerService_DownloadSummaryClient, error)
+	DownloadSummary(ctx context.Context, in *Request, opts ...grpc.CallOption) (SummaryManagerService_DownloadSummaryClient, error)
 }
 
 type summaryManagerServiceClient struct {
@@ -50,8 +50,8 @@ func (c *summaryManagerServiceClient) UploadSummary(ctx context.Context, opts ..
 }
 
 type SummaryManagerService_UploadSummaryClient interface {
-	Send(*SummarySendRequest) error
-	CloseAndRecv() (*SummarySendResponse, error)
+	Send(*Chunk) error
+	CloseAndRecv() (*Response, error)
 	grpc.ClientStream
 }
 
@@ -59,22 +59,22 @@ type summaryManagerServiceUploadSummaryClient struct {
 	grpc.ClientStream
 }
 
-func (x *summaryManagerServiceUploadSummaryClient) Send(m *SummarySendRequest) error {
+func (x *summaryManagerServiceUploadSummaryClient) Send(m *Chunk) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *summaryManagerServiceUploadSummaryClient) CloseAndRecv() (*SummarySendResponse, error) {
+func (x *summaryManagerServiceUploadSummaryClient) CloseAndRecv() (*Response, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(SummarySendResponse)
+	m := new(Response)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *summaryManagerServiceClient) DownloadSummary(ctx context.Context, in *SummaryReadRequest, opts ...grpc.CallOption) (SummaryManagerService_DownloadSummaryClient, error) {
+func (c *summaryManagerServiceClient) DownloadSummary(ctx context.Context, in *Request, opts ...grpc.CallOption) (SummaryManagerService_DownloadSummaryClient, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &SummaryManagerService_ServiceDesc.Streams[1], SummaryManagerService_DownloadSummary_FullMethodName, cOpts...)
 	if err != nil {
@@ -91,7 +91,7 @@ func (c *summaryManagerServiceClient) DownloadSummary(ctx context.Context, in *S
 }
 
 type SummaryManagerService_DownloadSummaryClient interface {
-	Recv() (*SummaryReadResponse, error)
+	Recv() (*Chunk, error)
 	grpc.ClientStream
 }
 
@@ -99,8 +99,8 @@ type summaryManagerServiceDownloadSummaryClient struct {
 	grpc.ClientStream
 }
 
-func (x *summaryManagerServiceDownloadSummaryClient) Recv() (*SummaryReadResponse, error) {
-	m := new(SummaryReadResponse)
+func (x *summaryManagerServiceDownloadSummaryClient) Recv() (*Chunk, error) {
+	m := new(Chunk)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (x *summaryManagerServiceDownloadSummaryClient) Recv() (*SummaryReadRespons
 // for forward compatibility
 type SummaryManagerServiceServer interface {
 	UploadSummary(SummaryManagerService_UploadSummaryServer) error
-	DownloadSummary(*SummaryReadRequest, SummaryManagerService_DownloadSummaryServer) error
+	DownloadSummary(*Request, SummaryManagerService_DownloadSummaryServer) error
 	mustEmbedUnimplementedSummaryManagerServiceServer()
 }
 
@@ -123,7 +123,7 @@ type UnimplementedSummaryManagerServiceServer struct {
 func (UnimplementedSummaryManagerServiceServer) UploadSummary(SummaryManagerService_UploadSummaryServer) error {
 	return status.Errorf(codes.Unimplemented, "method UploadSummary not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) DownloadSummary(*SummaryReadRequest, SummaryManagerService_DownloadSummaryServer) error {
+func (UnimplementedSummaryManagerServiceServer) DownloadSummary(*Request, SummaryManagerService_DownloadSummaryServer) error {
 	return status.Errorf(codes.Unimplemented, "method DownloadSummary not implemented")
 }
 func (UnimplementedSummaryManagerServiceServer) mustEmbedUnimplementedSummaryManagerServiceServer() {}
@@ -144,8 +144,8 @@ func _SummaryManagerService_UploadSummary_Handler(srv interface{}, stream grpc.S
 }
 
 type SummaryManagerService_UploadSummaryServer interface {
-	SendAndClose(*SummarySendResponse) error
-	Recv() (*SummarySendRequest, error)
+	SendAndClose(*Response) error
+	Recv() (*Chunk, error)
 	grpc.ServerStream
 }
 
@@ -153,12 +153,12 @@ type summaryManagerServiceUploadSummaryServer struct {
 	grpc.ServerStream
 }
 
-func (x *summaryManagerServiceUploadSummaryServer) SendAndClose(m *SummarySendResponse) error {
+func (x *summaryManagerServiceUploadSummaryServer) SendAndClose(m *Response) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *summaryManagerServiceUploadSummaryServer) Recv() (*SummarySendRequest, error) {
-	m := new(SummarySendRequest)
+func (x *summaryManagerServiceUploadSummaryServer) Recv() (*Chunk, error) {
+	m := new(Chunk)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func (x *summaryManagerServiceUploadSummaryServer) Recv() (*SummarySendRequest, 
 }
 
 func _SummaryManagerService_DownloadSummary_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SummaryReadRequest)
+	m := new(Request)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -174,7 +174,7 @@ func _SummaryManagerService_DownloadSummary_Handler(srv interface{}, stream grpc
 }
 
 type SummaryManagerService_DownloadSummaryServer interface {
-	Send(*SummaryReadResponse) error
+	Send(*Chunk) error
 	grpc.ServerStream
 }
 
@@ -182,7 +182,7 @@ type summaryManagerServiceDownloadSummaryServer struct {
 	grpc.ServerStream
 }
 
-func (x *summaryManagerServiceDownloadSummaryServer) Send(m *SummaryReadResponse) error {
+func (x *summaryManagerServiceDownloadSummaryServer) Send(m *Chunk) error {
 	return x.ServerStream.SendMsg(m)
 }
 

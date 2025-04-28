@@ -34,28 +34,39 @@ class SummaryManagerServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.UploadSummary = channel.stream_unary(
-                '/summager.SummaryManagerService/UploadSummary',
-                request_serializer=summager_dot_summary__manager__pb2.ChunkRequest.SerializeToString,
+        self.StartSending = channel.unary_unary(
+                '/summager.SummaryManagerService/StartSending',
+                request_serializer=summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.StartResponse.FromString,
+                _registered_method=True)
+        self.SendChunk = channel.unary_unary(
+                '/summager.SummaryManagerService/SendChunk',
+                request_serializer=summager_dot_summary__manager__pb2.Chunk.SerializeToString,
                 response_deserializer=summager_dot_summary__manager__pb2.Response.FromString,
                 _registered_method=True)
-        self.DownloadSummary = channel.unary_stream(
-                '/summager.SummaryManagerService/DownloadSummary',
-                request_serializer=summager_dot_summary__manager__pb2.Request.SerializeToString,
-                response_deserializer=summager_dot_summary__manager__pb2.Chunk.FromString,
+        self.CloseSending = channel.unary_unary(
+                '/summager.SummaryManagerService/CloseSending',
+                request_serializer=summager_dot_summary__manager__pb2.EndRequest.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.EndResponse.FromString,
                 _registered_method=True)
 
 
 class SummaryManagerServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def UploadSummary(self, request_iterator, context):
+    def StartSending(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DownloadSummary(self, request, context):
+    def SendChunk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CloseSending(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -64,15 +75,20 @@ class SummaryManagerServiceServicer(object):
 
 def add_SummaryManagerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'UploadSummary': grpc.stream_unary_rpc_method_handler(
-                    servicer.UploadSummary,
-                    request_deserializer=summager_dot_summary__manager__pb2.ChunkRequest.FromString,
+            'StartSending': grpc.unary_unary_rpc_method_handler(
+                    servicer.StartSending,
+                    request_deserializer=summager_dot_summary__manager__pb2.StartRequest.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.StartResponse.SerializeToString,
+            ),
+            'SendChunk': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendChunk,
+                    request_deserializer=summager_dot_summary__manager__pb2.Chunk.FromString,
                     response_serializer=summager_dot_summary__manager__pb2.Response.SerializeToString,
             ),
-            'DownloadSummary': grpc.unary_stream_rpc_method_handler(
-                    servicer.DownloadSummary,
-                    request_deserializer=summager_dot_summary__manager__pb2.Request.FromString,
-                    response_serializer=summager_dot_summary__manager__pb2.Chunk.SerializeToString,
+            'CloseSending': grpc.unary_unary_rpc_method_handler(
+                    servicer.CloseSending,
+                    request_deserializer=summager_dot_summary__manager__pb2.EndRequest.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.EndResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -86,7 +102,7 @@ class SummaryManagerService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def UploadSummary(request_iterator,
+    def StartSending(request,
             target,
             options=(),
             channel_credentials=None,
@@ -96,11 +112,38 @@ class SummaryManagerService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(
-            request_iterator,
+        return grpc.experimental.unary_unary(
+            request,
             target,
-            '/summager.SummaryManagerService/UploadSummary',
-            summager_dot_summary__manager__pb2.ChunkRequest.SerializeToString,
+            '/summager.SummaryManagerService/StartSending',
+            summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+            summager_dot_summary__manager__pb2.StartResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SendChunk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/summager.SummaryManagerService/SendChunk',
+            summager_dot_summary__manager__pb2.Chunk.SerializeToString,
             summager_dot_summary__manager__pb2.Response.FromString,
             options,
             channel_credentials,
@@ -113,7 +156,7 @@ class SummaryManagerService(object):
             _registered_method=True)
 
     @staticmethod
-    def DownloadSummary(request,
+    def CloseSending(request,
             target,
             options=(),
             channel_credentials=None,
@@ -123,12 +166,12 @@ class SummaryManagerService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
-            '/summager.SummaryManagerService/DownloadSummary',
-            summager_dot_summary__manager__pb2.Request.SerializeToString,
-            summager_dot_summary__manager__pb2.Chunk.FromString,
+            '/summager.SummaryManagerService/CloseSending',
+            summager_dot_summary__manager__pb2.EndRequest.SerializeToString,
+            summager_dot_summary__manager__pb2.EndResponse.FromString,
             options,
             channel_credentials,
             insecure,

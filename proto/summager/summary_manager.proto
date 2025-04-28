@@ -4,24 +4,35 @@ package summager;
 option go_package = "gen/go/summager";
 
 service SummaryManagerService {
-    rpc UploadSummary(stream ChunkRequest) returns (Response);
-    rpc DownloadSummary(Request) returns (stream Chunk);
+    rpc StartSending(StartRequest) returns (StartResponse);
+    rpc SendChunk(Chunk) returns (Response);
+    rpc CloseSending(EndRequest) returns (EndResponse);
 }
 
-message Request {
+message StartRequest {
     string file_path = 1;
-    int64 chunk_length = 2;
+    uint64 chunk_size = 2;
+    uint64 file_size = 3;
+}
+
+message StartResponse {
+    uint64 uuid = 1;
 }
 
 message Chunk {
-    bytes content = 1;
-}
-
-message ChunkRequest {
-    Chunk chunk = 1;
-    Request request = 2;
+    uint64 uuid = 1;
+    bytes content = 2;
 }
 
 message Response {
-    string message = 1;
+    int32 code = 1;
+}
+
+message EndRequest {
+    uint64 uuid = 1;
+    int32 code = 2;
+}
+
+message EndResponse {
+    uint64 uuid = 1;
 }

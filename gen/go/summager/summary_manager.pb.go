@@ -20,17 +20,18 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Request struct {
+type StartRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FilePath    string `protobuf:"bytes,1,opt,name=file_path,json=filePath,proto3" json:"file_path,omitempty"`
-	ChunkLength int64  `protobuf:"varint,2,opt,name=chunk_length,json=chunkLength,proto3" json:"chunk_length,omitempty"`
+	FilePath  string `protobuf:"bytes,1,opt,name=file_path,json=filePath,proto3" json:"file_path,omitempty"`
+	ChunkSize uint64 `protobuf:"varint,2,opt,name=chunk_size,json=chunkSize,proto3" json:"chunk_size,omitempty"`
+	FileSize  uint64 `protobuf:"varint,3,opt,name=file_size,json=fileSize,proto3" json:"file_size,omitempty"`
 }
 
-func (x *Request) Reset() {
-	*x = Request{}
+func (x *StartRequest) Reset() {
+	*x = StartRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_summager_summary_manager_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -38,13 +39,13 @@ func (x *Request) Reset() {
 	}
 }
 
-func (x *Request) String() string {
+func (x *StartRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Request) ProtoMessage() {}
+func (*StartRequest) ProtoMessage() {}
 
-func (x *Request) ProtoReflect() protoreflect.Message {
+func (x *StartRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_summager_summary_manager_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,21 +57,75 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Request.ProtoReflect.Descriptor instead.
-func (*Request) Descriptor() ([]byte, []int) {
+// Deprecated: Use StartRequest.ProtoReflect.Descriptor instead.
+func (*StartRequest) Descriptor() ([]byte, []int) {
 	return file_summager_summary_manager_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Request) GetFilePath() string {
+func (x *StartRequest) GetFilePath() string {
 	if x != nil {
 		return x.FilePath
 	}
 	return ""
 }
 
-func (x *Request) GetChunkLength() int64 {
+func (x *StartRequest) GetChunkSize() uint64 {
 	if x != nil {
-		return x.ChunkLength
+		return x.ChunkSize
+	}
+	return 0
+}
+
+func (x *StartRequest) GetFileSize() uint64 {
+	if x != nil {
+		return x.FileSize
+	}
+	return 0
+}
+
+type StartResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uuid uint64 `protobuf:"varint,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+}
+
+func (x *StartResponse) Reset() {
+	*x = StartResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_summager_summary_manager_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StartResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartResponse) ProtoMessage() {}
+
+func (x *StartResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_summager_summary_manager_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartResponse.ProtoReflect.Descriptor instead.
+func (*StartResponse) Descriptor() ([]byte, []int) {
+	return file_summager_summary_manager_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *StartResponse) GetUuid() uint64 {
+	if x != nil {
+		return x.Uuid
 	}
 	return 0
 }
@@ -80,13 +135,14 @@ type Chunk struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Content []byte `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	Uuid    uint64 `protobuf:"varint,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	Content []byte `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
 }
 
 func (x *Chunk) Reset() {
 	*x = Chunk{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_summager_summary_manager_proto_msgTypes[1]
+		mi := &file_summager_summary_manager_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -99,7 +155,7 @@ func (x *Chunk) String() string {
 func (*Chunk) ProtoMessage() {}
 
 func (x *Chunk) ProtoReflect() protoreflect.Message {
-	mi := &file_summager_summary_manager_proto_msgTypes[1]
+	mi := &file_summager_summary_manager_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -112,7 +168,14 @@ func (x *Chunk) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Chunk.ProtoReflect.Descriptor instead.
 func (*Chunk) Descriptor() ([]byte, []int) {
-	return file_summager_summary_manager_proto_rawDescGZIP(), []int{1}
+	return file_summager_summary_manager_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Chunk) GetUuid() uint64 {
+	if x != nil {
+		return x.Uuid
+	}
+	return 0
 }
 
 func (x *Chunk) GetContent() []byte {
@@ -122,67 +185,12 @@ func (x *Chunk) GetContent() []byte {
 	return nil
 }
 
-type ChunkRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Chunk   *Chunk   `protobuf:"bytes,1,opt,name=chunk,proto3" json:"chunk,omitempty"`
-	Request *Request `protobuf:"bytes,2,opt,name=request,proto3" json:"request,omitempty"`
-}
-
-func (x *ChunkRequest) Reset() {
-	*x = ChunkRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_summager_summary_manager_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ChunkRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ChunkRequest) ProtoMessage() {}
-
-func (x *ChunkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_summager_summary_manager_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ChunkRequest.ProtoReflect.Descriptor instead.
-func (*ChunkRequest) Descriptor() ([]byte, []int) {
-	return file_summager_summary_manager_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *ChunkRequest) GetChunk() *Chunk {
-	if x != nil {
-		return x.Chunk
-	}
-	return nil
-}
-
-func (x *ChunkRequest) GetRequest() *Request {
-	if x != nil {
-		return x.Request
-	}
-	return nil
-}
-
 type Response struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Code int32 `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
 }
 
 func (x *Response) Reset() {
@@ -217,11 +225,113 @@ func (*Response) Descriptor() ([]byte, []int) {
 	return file_summager_summary_manager_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *Response) GetMessage() string {
+func (x *Response) GetCode() int32 {
 	if x != nil {
-		return x.Message
+		return x.Code
 	}
-	return ""
+	return 0
+}
+
+type EndRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uuid uint64 `protobuf:"varint,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	Code int32  `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+}
+
+func (x *EndRequest) Reset() {
+	*x = EndRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_summager_summary_manager_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EndRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EndRequest) ProtoMessage() {}
+
+func (x *EndRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_summager_summary_manager_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EndRequest.ProtoReflect.Descriptor instead.
+func (*EndRequest) Descriptor() ([]byte, []int) {
+	return file_summager_summary_manager_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *EndRequest) GetUuid() uint64 {
+	if x != nil {
+		return x.Uuid
+	}
+	return 0
+}
+
+func (x *EndRequest) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+type EndResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uuid uint64 `protobuf:"varint,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+}
+
+func (x *EndResponse) Reset() {
+	*x = EndResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_summager_summary_manager_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EndResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EndResponse) ProtoMessage() {}
+
+func (x *EndResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_summager_summary_manager_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EndResponse.ProtoReflect.Descriptor instead.
+func (*EndResponse) Descriptor() ([]byte, []int) {
+	return file_summager_summary_manager_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *EndResponse) GetUuid() uint64 {
+	if x != nil {
+		return x.Uuid
+	}
+	return 0
 }
 
 var File_summager_summary_manager_proto protoreflect.FileDescriptor
@@ -229,33 +339,41 @@ var File_summager_summary_manager_proto protoreflect.FileDescriptor
 var file_summager_summary_manager_proto_rawDesc = []byte{
 	0x0a, 0x1e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2f, 0x73, 0x75, 0x6d, 0x6d, 0x61,
 	0x72, 0x79, 0x5f, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x08, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x22, 0x49, 0x0a, 0x07, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x70, 0x61,
-	0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x50, 0x61,
-	0x74, 0x68, 0x12, 0x21, 0x0a, 0x0c, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x5f, 0x6c, 0x65, 0x6e, 0x67,
-	0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0b, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x4c,
-	0x65, 0x6e, 0x67, 0x74, 0x68, 0x22, 0x21, 0x0a, 0x05, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x12, 0x18,
-	0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52,
-	0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x62, 0x0a, 0x0c, 0x43, 0x68, 0x75, 0x6e,
-	0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x05, 0x63, 0x68, 0x75, 0x6e,
-	0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67,
-	0x65, 0x72, 0x2e, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x05, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x12,
-	0x2b, 0x0a, 0x07, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x11, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x52, 0x07, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x24, 0x0a, 0x08,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73,
-	0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x32, 0x8f, 0x01, 0x0a, 0x15, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x79, 0x4d, 0x61,
-	0x6e, 0x61, 0x67, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x3d, 0x0a, 0x0d,
-	0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x79, 0x12, 0x16, 0x2e,
-	0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72,
-	0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x28, 0x01, 0x12, 0x37, 0x0a, 0x0f, 0x44,
-	0x6f, 0x77, 0x6e, 0x6c, 0x6f, 0x61, 0x64, 0x53, 0x75, 0x6d, 0x6d, 0x61, 0x72, 0x79, 0x12, 0x11,
-	0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x0f, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x43, 0x68, 0x75,
-	0x6e, 0x6b, 0x30, 0x01, 0x42, 0x11, 0x5a, 0x0f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x73,
-	0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x08, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x22, 0x67, 0x0a, 0x0c, 0x53, 0x74,
+	0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x66, 0x69,
+	0x6c, 0x65, 0x5f, 0x70, 0x61, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66,
+	0x69, 0x6c, 0x65, 0x50, 0x61, 0x74, 0x68, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x68, 0x75, 0x6e, 0x6b,
+	0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x63, 0x68, 0x75,
+	0x6e, 0x6b, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x73,
+	0x69, 0x7a, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x53,
+	0x69, 0x7a, 0x65, 0x22, 0x23, 0x0a, 0x0d, 0x53, 0x74, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x22, 0x35, 0x0a, 0x05, 0x43, 0x68, 0x75, 0x6e,
+	0x6b, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x04, 0x75, 0x75, 0x69, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22,
+	0x1e, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x63,
+	0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x22,
+	0x34, 0x0a, 0x0a, 0x45, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a,
+	0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x04, 0x75, 0x75, 0x69,
+	0x64, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x04, 0x63, 0x6f, 0x64, 0x65, 0x22, 0x21, 0x0a, 0x0b, 0x45, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x04, 0x75, 0x75, 0x69, 0x64, 0x32, 0xc7, 0x01, 0x0a, 0x15, 0x53, 0x75, 0x6d,
+	0x6d, 0x61, 0x72, 0x79, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x12, 0x3f, 0x0a, 0x0c, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53, 0x65, 0x6e, 0x64, 0x69,
+	0x6e, 0x67, 0x12, 0x16, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x53, 0x74,
+	0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x73, 0x75, 0x6d,
+	0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x30, 0x0a, 0x09, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x68, 0x75, 0x6e, 0x6b,
+	0x12, 0x0f, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x43, 0x68, 0x75, 0x6e,
+	0x6b, 0x1a, 0x12, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x0c, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53, 0x65,
+	0x6e, 0x64, 0x69, 0x6e, 0x67, 0x12, 0x14, 0x2e, 0x73, 0x75, 0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72,
+	0x2e, 0x45, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x73, 0x75,
+	0x6d, 0x6d, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x45, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x42, 0x11, 0x5a, 0x0f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x73, 0x75, 0x6d,
+	0x6d, 0x61, 0x67, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -270,25 +388,27 @@ func file_summager_summary_manager_proto_rawDescGZIP() []byte {
 	return file_summager_summary_manager_proto_rawDescData
 }
 
-var file_summager_summary_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_summager_summary_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_summager_summary_manager_proto_goTypes = []interface{}{
-	(*Request)(nil),      // 0: summager.Request
-	(*Chunk)(nil),        // 1: summager.Chunk
-	(*ChunkRequest)(nil), // 2: summager.ChunkRequest
-	(*Response)(nil),     // 3: summager.Response
+	(*StartRequest)(nil),  // 0: summager.StartRequest
+	(*StartResponse)(nil), // 1: summager.StartResponse
+	(*Chunk)(nil),         // 2: summager.Chunk
+	(*Response)(nil),      // 3: summager.Response
+	(*EndRequest)(nil),    // 4: summager.EndRequest
+	(*EndResponse)(nil),   // 5: summager.EndResponse
 }
 var file_summager_summary_manager_proto_depIdxs = []int32{
-	1, // 0: summager.ChunkRequest.chunk:type_name -> summager.Chunk
-	0, // 1: summager.ChunkRequest.request:type_name -> summager.Request
-	2, // 2: summager.SummaryManagerService.UploadSummary:input_type -> summager.ChunkRequest
-	0, // 3: summager.SummaryManagerService.DownloadSummary:input_type -> summager.Request
-	3, // 4: summager.SummaryManagerService.UploadSummary:output_type -> summager.Response
-	1, // 5: summager.SummaryManagerService.DownloadSummary:output_type -> summager.Chunk
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0, // 0: summager.SummaryManagerService.StartSending:input_type -> summager.StartRequest
+	2, // 1: summager.SummaryManagerService.SendChunk:input_type -> summager.Chunk
+	4, // 2: summager.SummaryManagerService.CloseSending:input_type -> summager.EndRequest
+	1, // 3: summager.SummaryManagerService.StartSending:output_type -> summager.StartResponse
+	3, // 4: summager.SummaryManagerService.SendChunk:output_type -> summager.Response
+	5, // 5: summager.SummaryManagerService.CloseSending:output_type -> summager.EndResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_summager_summary_manager_proto_init() }
@@ -298,7 +418,7 @@ func file_summager_summary_manager_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_summager_summary_manager_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Request); i {
+			switch v := v.(*StartRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -310,7 +430,7 @@ func file_summager_summary_manager_proto_init() {
 			}
 		}
 		file_summager_summary_manager_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Chunk); i {
+			switch v := v.(*StartResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -322,7 +442,7 @@ func file_summager_summary_manager_proto_init() {
 			}
 		}
 		file_summager_summary_manager_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ChunkRequest); i {
+			switch v := v.(*Chunk); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -345,6 +465,30 @@ func file_summager_summary_manager_proto_init() {
 				return nil
 			}
 		}
+		file_summager_summary_manager_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EndRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_summager_summary_manager_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EndResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -352,7 +496,7 @@ func file_summager_summary_manager_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_summager_summary_manager_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

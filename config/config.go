@@ -9,13 +9,21 @@ type DBConnect struct {
 	Password string `yaml:"password"`
 }
 
+type RedisConnect struct {
+	User     string `yaml:"user"`
+	DB       uint   `yaml:"db"`
+	Protocol uint   `yaml:"protocol"`
+	Password string `yaml:"password"`
+}
+
 type Service struct {
-	Name        string     `yaml:"name"`
-	Description string     `yaml:"description"`
-	Host        string     `yaml:"host"`
-	Port        uint       `yaml:"port"`
-	ID          uint       `yaml:"id"`
-	Connect     *DBConnect `yaml:"db"`
+	Name         string        `yaml:"name"`
+	Description  string        `yaml:"description"`
+	Host         string        `yaml:"host"`
+	Port         uint          `yaml:"port"`
+	ID           uint          `yaml:"id"`
+	DBConnect    *DBConnect    `yaml:"db"`
+	RedisConnect *RedisConnect `yaml:"redis"`
 }
 
 type Database struct {
@@ -23,9 +31,15 @@ type Database struct {
 	Port uint   `yaml:"port"`
 }
 
+type Redis struct {
+	Host string `yaml:"host"`
+	Port uint   `yaml:"port"`
+}
+
 type Config struct {
 	Services []*Service `yaml:"services"`
 	Database *Database  `yaml:"db"`
+	Redis    *Redis     `yaml:"redis"`
 }
 
 func (config *Config) GetServiceById(id uint) (*Service, error) {

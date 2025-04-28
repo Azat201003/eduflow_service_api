@@ -10,7 +10,7 @@ import (
 func TestGetting(t *testing.T) {
 	conf, err := config.GetConfig("example.yaml")
 	if err != nil {
-		log.Fatalf("Error with getting config: %v", err)
+		t.Fatalf("Error with getting config: %v", err)
 	}
 	log.Println(conf)
 }

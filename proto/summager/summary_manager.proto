@@ -5,8 +5,10 @@ option go_package = "gen/go/summager";
 
 service SummaryManagerService {
     rpc StartSending(StartRequest) returns (StartResponse);
-    rpc SendChunk(Chunk) returns (Response);
+    rpc SendChunk(WriteChunk) returns (WriteResponse);
+    rpc ReadChunk(ReadRequest) returns (GetChunk);
     rpc CloseSending(EndRequest) returns (EndResponse);
+    rpc StartReading(StartRequest) returns (StartResponse);
 }
 
 message StartRequest {
@@ -19,18 +21,27 @@ message StartResponse {
     uint64 uuid = 1;
 }
 
-message Chunk {
+message WriteChunk {
     uint64 uuid = 1;
     bytes content = 2;
 }
 
-message Response {
+message GetChunk {
+    bytes content = 1;
+}
+
+message WriteResponse {
     int32 code = 1;
+}
+
+message ReadRequest {
+    int32 uuid = 1;
 }
 
 message EndRequest {
     uint64 uuid = 1;
-    int32 code = 2;
+    string title = 2;
+    string description = 3;
 }
 
 message EndResponse {

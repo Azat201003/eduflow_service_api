@@ -41,13 +41,23 @@ class SummaryManagerServiceStub(object):
                 _registered_method=True)
         self.SendChunk = channel.unary_unary(
                 '/summager.SummaryManagerService/SendChunk',
-                request_serializer=summager_dot_summary__manager__pb2.Chunk.SerializeToString,
-                response_deserializer=summager_dot_summary__manager__pb2.Response.FromString,
+                request_serializer=summager_dot_summary__manager__pb2.WriteChunk.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.WriteResponse.FromString,
+                _registered_method=True)
+        self.ReadChunk = channel.unary_unary(
+                '/summager.SummaryManagerService/ReadChunk',
+                request_serializer=summager_dot_summary__manager__pb2.ReadRequest.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.GetChunk.FromString,
                 _registered_method=True)
         self.CloseSending = channel.unary_unary(
                 '/summager.SummaryManagerService/CloseSending',
                 request_serializer=summager_dot_summary__manager__pb2.EndRequest.SerializeToString,
                 response_deserializer=summager_dot_summary__manager__pb2.EndResponse.FromString,
+                _registered_method=True)
+        self.StartReading = channel.unary_unary(
+                '/summager.SummaryManagerService/StartReading',
+                request_serializer=summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+                response_deserializer=summager_dot_summary__manager__pb2.StartResponse.FromString,
                 _registered_method=True)
 
 
@@ -66,7 +76,19 @@ class SummaryManagerServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReadChunk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def CloseSending(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StartReading(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -82,13 +104,23 @@ def add_SummaryManagerServiceServicer_to_server(servicer, server):
             ),
             'SendChunk': grpc.unary_unary_rpc_method_handler(
                     servicer.SendChunk,
-                    request_deserializer=summager_dot_summary__manager__pb2.Chunk.FromString,
-                    response_serializer=summager_dot_summary__manager__pb2.Response.SerializeToString,
+                    request_deserializer=summager_dot_summary__manager__pb2.WriteChunk.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.WriteResponse.SerializeToString,
+            ),
+            'ReadChunk': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReadChunk,
+                    request_deserializer=summager_dot_summary__manager__pb2.ReadRequest.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.GetChunk.SerializeToString,
             ),
             'CloseSending': grpc.unary_unary_rpc_method_handler(
                     servicer.CloseSending,
                     request_deserializer=summager_dot_summary__manager__pb2.EndRequest.FromString,
                     response_serializer=summager_dot_summary__manager__pb2.EndResponse.SerializeToString,
+            ),
+            'StartReading': grpc.unary_unary_rpc_method_handler(
+                    servicer.StartReading,
+                    request_deserializer=summager_dot_summary__manager__pb2.StartRequest.FromString,
+                    response_serializer=summager_dot_summary__manager__pb2.StartResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -143,8 +175,35 @@ class SummaryManagerService(object):
             request,
             target,
             '/summager.SummaryManagerService/SendChunk',
-            summager_dot_summary__manager__pb2.Chunk.SerializeToString,
-            summager_dot_summary__manager__pb2.Response.FromString,
+            summager_dot_summary__manager__pb2.WriteChunk.SerializeToString,
+            summager_dot_summary__manager__pb2.WriteResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReadChunk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/summager.SummaryManagerService/ReadChunk',
+            summager_dot_summary__manager__pb2.ReadRequest.SerializeToString,
+            summager_dot_summary__manager__pb2.GetChunk.FromString,
             options,
             channel_credentials,
             insecure,
@@ -172,6 +231,33 @@ class SummaryManagerService(object):
             '/summager.SummaryManagerService/CloseSending',
             summager_dot_summary__manager__pb2.EndRequest.SerializeToString,
             summager_dot_summary__manager__pb2.EndResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StartReading(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/summager.SummaryManagerService/StartReading',
+            summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+            summager_dot_summary__manager__pb2.StartResponse.FromString,
             options,
             channel_credentials,
             insecure,

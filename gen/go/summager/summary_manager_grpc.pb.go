@@ -30,11 +30,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SummaryManagerServiceClient interface {
-	StartSending(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*StartResponse, error)
+	StartSending(ctx context.Context, in *StartWriteRequest, opts ...grpc.CallOption) (*StartResponse, error)
 	SendChunk(ctx context.Context, in *WriteChunk, opts ...grpc.CallOption) (*WriteResponse, error)
 	ReadChunk(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*GetChunk, error)
 	CloseSending(ctx context.Context, in *EndRequest, opts ...grpc.CallOption) (*EndResponse, error)
-	StartReading(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*StartResponse, error)
+	StartReading(ctx context.Context, in *StartReadRequest, opts ...grpc.CallOption) (*StartResponse, error)
 }
 
 type summaryManagerServiceClient struct {
@@ -45,7 +45,7 @@ func NewSummaryManagerServiceClient(cc grpc.ClientConnInterface) SummaryManagerS
 	return &summaryManagerServiceClient{cc}
 }
 
-func (c *summaryManagerServiceClient) StartSending(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*StartResponse, error) {
+func (c *summaryManagerServiceClient) StartSending(ctx context.Context, in *StartWriteRequest, opts ...grpc.CallOption) (*StartResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(StartResponse)
 	err := c.cc.Invoke(ctx, SummaryManagerService_StartSending_FullMethodName, in, out, cOpts...)
@@ -85,7 +85,7 @@ func (c *summaryManagerServiceClient) CloseSending(ctx context.Context, in *EndR
 	return out, nil
 }
 
-func (c *summaryManagerServiceClient) StartReading(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*StartResponse, error) {
+func (c *summaryManagerServiceClient) StartReading(ctx context.Context, in *StartReadRequest, opts ...grpc.CallOption) (*StartResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(StartResponse)
 	err := c.cc.Invoke(ctx, SummaryManagerService_StartReading_FullMethodName, in, out, cOpts...)
@@ -99,11 +99,11 @@ func (c *summaryManagerServiceClient) StartReading(ctx context.Context, in *Star
 // All implementations must embed UnimplementedSummaryManagerServiceServer
 // for forward compatibility
 type SummaryManagerServiceServer interface {
-	StartSending(context.Context, *StartRequest) (*StartResponse, error)
+	StartSending(context.Context, *StartWriteRequest) (*StartResponse, error)
 	SendChunk(context.Context, *WriteChunk) (*WriteResponse, error)
 	ReadChunk(context.Context, *ReadRequest) (*GetChunk, error)
 	CloseSending(context.Context, *EndRequest) (*EndResponse, error)
-	StartReading(context.Context, *StartRequest) (*StartResponse, error)
+	StartReading(context.Context, *StartReadRequest) (*StartResponse, error)
 	mustEmbedUnimplementedSummaryManagerServiceServer()
 }
 
@@ -111,7 +111,7 @@ type SummaryManagerServiceServer interface {
 type UnimplementedSummaryManagerServiceServer struct {
 }
 
-func (UnimplementedSummaryManagerServiceServer) StartSending(context.Context, *StartRequest) (*StartResponse, error) {
+func (UnimplementedSummaryManagerServiceServer) StartSending(context.Context, *StartWriteRequest) (*StartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartSending not implemented")
 }
 func (UnimplementedSummaryManagerServiceServer) SendChunk(context.Context, *WriteChunk) (*WriteResponse, error) {
@@ -123,7 +123,7 @@ func (UnimplementedSummaryManagerServiceServer) ReadChunk(context.Context, *Read
 func (UnimplementedSummaryManagerServiceServer) CloseSending(context.Context, *EndRequest) (*EndResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CloseSending not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) StartReading(context.Context, *StartRequest) (*StartResponse, error) {
+func (UnimplementedSummaryManagerServiceServer) StartReading(context.Context, *StartReadRequest) (*StartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartReading not implemented")
 }
 func (UnimplementedSummaryManagerServiceServer) mustEmbedUnimplementedSummaryManagerServiceServer() {}
@@ -140,7 +140,7 @@ func RegisterSummaryManagerServiceServer(s grpc.ServiceRegistrar, srv SummaryMan
 }
 
 func _SummaryManagerService_StartSending_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StartRequest)
+	in := new(StartWriteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func _SummaryManagerService_StartSending_Handler(srv interface{}, ctx context.Co
 		FullMethod: SummaryManagerService_StartSending_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).StartSending(ctx, req.(*StartRequest))
+		return srv.(SummaryManagerServiceServer).StartSending(ctx, req.(*StartWriteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -212,7 +212,7 @@ func _SummaryManagerService_CloseSending_Handler(srv interface{}, ctx context.Co
 }
 
 func _SummaryManagerService_StartReading_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StartRequest)
+	in := new(StartReadRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -224,7 +224,7 @@ func _SummaryManagerService_StartReading_Handler(srv interface{}, ctx context.Co
 		FullMethod: SummaryManagerService_StartReading_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).StartReading(ctx, req.(*StartRequest))
+		return srv.(SummaryManagerServiceServer).StartReading(ctx, req.(*StartReadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

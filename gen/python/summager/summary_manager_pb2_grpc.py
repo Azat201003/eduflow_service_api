@@ -36,7 +36,7 @@ class SummaryManagerServiceStub(object):
         """
         self.StartSending = channel.unary_unary(
                 '/summager.SummaryManagerService/StartSending',
-                request_serializer=summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+                request_serializer=summager_dot_summary__manager__pb2.StartWriteRequest.SerializeToString,
                 response_deserializer=summager_dot_summary__manager__pb2.StartResponse.FromString,
                 _registered_method=True)
         self.SendChunk = channel.unary_unary(
@@ -56,7 +56,7 @@ class SummaryManagerServiceStub(object):
                 _registered_method=True)
         self.StartReading = channel.unary_unary(
                 '/summager.SummaryManagerService/StartReading',
-                request_serializer=summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+                request_serializer=summager_dot_summary__manager__pb2.StartReadRequest.SerializeToString,
                 response_deserializer=summager_dot_summary__manager__pb2.StartResponse.FromString,
                 _registered_method=True)
 
@@ -99,7 +99,7 @@ def add_SummaryManagerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'StartSending': grpc.unary_unary_rpc_method_handler(
                     servicer.StartSending,
-                    request_deserializer=summager_dot_summary__manager__pb2.StartRequest.FromString,
+                    request_deserializer=summager_dot_summary__manager__pb2.StartWriteRequest.FromString,
                     response_serializer=summager_dot_summary__manager__pb2.StartResponse.SerializeToString,
             ),
             'SendChunk': grpc.unary_unary_rpc_method_handler(
@@ -119,7 +119,7 @@ def add_SummaryManagerServiceServicer_to_server(servicer, server):
             ),
             'StartReading': grpc.unary_unary_rpc_method_handler(
                     servicer.StartReading,
-                    request_deserializer=summager_dot_summary__manager__pb2.StartRequest.FromString,
+                    request_deserializer=summager_dot_summary__manager__pb2.StartReadRequest.FromString,
                     response_serializer=summager_dot_summary__manager__pb2.StartResponse.SerializeToString,
             ),
     }
@@ -148,7 +148,7 @@ class SummaryManagerService(object):
             request,
             target,
             '/summager.SummaryManagerService/StartSending',
-            summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+            summager_dot_summary__manager__pb2.StartWriteRequest.SerializeToString,
             summager_dot_summary__manager__pb2.StartResponse.FromString,
             options,
             channel_credentials,
@@ -256,7 +256,7 @@ class SummaryManagerService(object):
             request,
             target,
             '/summager.SummaryManagerService/StartReading',
-            summager_dot_summary__manager__pb2.StartRequest.SerializeToString,
+            summager_dot_summary__manager__pb2.StartReadRequest.SerializeToString,
             summager_dot_summary__manager__pb2.StartResponse.FromString,
             options,
             channel_credentials,

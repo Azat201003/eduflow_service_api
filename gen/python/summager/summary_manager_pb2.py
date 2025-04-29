@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"H\n\x0cStartRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12\x11\n\tfile_size\x18\x03 \x01(\x04\"\x1d\n\rStartResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\"+\n\nWriteChunk\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"\x1b\n\x08GetChunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1d\n\rWriteResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"\x1b\n\x0bReadRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x05\">\n\nEndRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"\x1b\n\x0b\x45ndResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x32\xca\x02\n\x15SummaryManagerService\x12?\n\x0cStartSending\x12\x16.summager.StartRequest\x1a\x17.summager.StartResponse\x12:\n\tSendChunk\x12\x14.summager.WriteChunk\x1a\x17.summager.WriteResponse\x12\x36\n\tReadChunk\x12\x15.summager.ReadRequest\x1a\x12.summager.GetChunk\x12;\n\x0c\x43loseSending\x12\x14.summager.EndRequest\x1a\x15.summager.EndResponse\x12?\n\x0cStartReading\x12\x16.summager.StartRequest\x1a\x17.summager.StartResponseB\x11Z\x0fgen/go/summagerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"9\n\x10StartReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\"M\n\x11StartWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12\x11\n\tfile_size\x18\x03 \x01(\x04\"\x1d\n\rStartResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\"+\n\nWriteChunk\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"\x1b\n\x08GetChunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1d\n\rWriteResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"\x1b\n\x0bReadRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x05\">\n\nEndRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"\x1b\n\x0b\x45ndResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x32\xd3\x02\n\x15SummaryManagerService\x12\x44\n\x0cStartSending\x12\x1b.summager.StartWriteRequest\x1a\x17.summager.StartResponse\x12:\n\tSendChunk\x12\x14.summager.WriteChunk\x1a\x17.summager.WriteResponse\x12\x36\n\tReadChunk\x12\x15.summager.ReadRequest\x1a\x12.summager.GetChunk\x12;\n\x0c\x43loseSending\x12\x14.summager.EndRequest\x1a\x15.summager.EndResponse\x12\x43\n\x0cStartReading\x12\x1a.summager.StartReadRequest\x1a\x17.summager.StartResponseB\x11Z\x0fgen/go/summagerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,22 +32,24 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'summager.summary_manager_pb
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\017gen/go/summager'
-  _globals['_STARTREQUEST']._serialized_start=44
-  _globals['_STARTREQUEST']._serialized_end=116
-  _globals['_STARTRESPONSE']._serialized_start=118
-  _globals['_STARTRESPONSE']._serialized_end=147
-  _globals['_WRITECHUNK']._serialized_start=149
-  _globals['_WRITECHUNK']._serialized_end=192
-  _globals['_GETCHUNK']._serialized_start=194
-  _globals['_GETCHUNK']._serialized_end=221
-  _globals['_WRITERESPONSE']._serialized_start=223
-  _globals['_WRITERESPONSE']._serialized_end=252
-  _globals['_READREQUEST']._serialized_start=254
-  _globals['_READREQUEST']._serialized_end=281
-  _globals['_ENDREQUEST']._serialized_start=283
-  _globals['_ENDREQUEST']._serialized_end=345
-  _globals['_ENDRESPONSE']._serialized_start=347
-  _globals['_ENDRESPONSE']._serialized_end=374
-  _globals['_SUMMARYMANAGERSERVICE']._serialized_start=377
-  _globals['_SUMMARYMANAGERSERVICE']._serialized_end=707
+  _globals['_STARTREADREQUEST']._serialized_start=44
+  _globals['_STARTREADREQUEST']._serialized_end=101
+  _globals['_STARTWRITEREQUEST']._serialized_start=103
+  _globals['_STARTWRITEREQUEST']._serialized_end=180
+  _globals['_STARTRESPONSE']._serialized_start=182
+  _globals['_STARTRESPONSE']._serialized_end=211
+  _globals['_WRITECHUNK']._serialized_start=213
+  _globals['_WRITECHUNK']._serialized_end=256
+  _globals['_GETCHUNK']._serialized_start=258
+  _globals['_GETCHUNK']._serialized_end=285
+  _globals['_WRITERESPONSE']._serialized_start=287
+  _globals['_WRITERESPONSE']._serialized_end=316
+  _globals['_READREQUEST']._serialized_start=318
+  _globals['_READREQUEST']._serialized_end=345
+  _globals['_ENDREQUEST']._serialized_start=347
+  _globals['_ENDREQUEST']._serialized_end=409
+  _globals['_ENDRESPONSE']._serialized_start=411
+  _globals['_ENDRESPONSE']._serialized_end=438
+  _globals['_SUMMARYMANAGERSERVICE']._serialized_start=441
+  _globals['_SUMMARYMANAGERSERVICE']._serialized_end=780
 # @@protoc_insertion_point(module_scope)

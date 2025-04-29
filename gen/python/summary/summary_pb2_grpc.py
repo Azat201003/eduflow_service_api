@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from summary import summary_pb2 as summary_dot_summary__pb2
 
 GRPC_GENERATED_VERSION = '1.72.0'
@@ -41,13 +42,13 @@ class SummaryServiceStub(object):
                 _registered_method=True)
         self.GetAllSummary = channel.unary_stream(
                 '/summary.SummaryService/GetAllSummary',
-                request_serializer=summary_dot_summary__pb2.Empty.SerializeToString,
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Summary.FromString,
                 _registered_method=True)
         self.CreateSummary = channel.unary_unary(
                 '/summary.SummaryService/CreateSummary',
                 request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
-                response_deserializer=summary_dot_summary__pb2.Empty.FromString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -82,13 +83,13 @@ def add_SummaryServiceServicer_to_server(servicer, server):
             ),
             'GetAllSummary': grpc.unary_stream_rpc_method_handler(
                     servicer.GetAllSummary,
-                    request_deserializer=summary_dot_summary__pb2.Empty.FromString,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
             'CreateSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSummary,
                     request_deserializer=summary_dot_summary__pb2.Summary.FromString,
-                    response_serializer=summary_dot_summary__pb2.Empty.SerializeToString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -143,7 +144,7 @@ class SummaryService(object):
             request,
             target,
             '/summary.SummaryService/GetAllSummary',
-            summary_dot_summary__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             summary_dot_summary__pb2.Summary.FromString,
             options,
             channel_credentials,
@@ -171,7 +172,7 @@ class SummaryService(object):
             target,
             '/summary.SummaryService/CreateSummary',
             summary_dot_summary__pb2.Summary.SerializeToString,
-            summary_dot_summary__pb2.Empty.FromString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

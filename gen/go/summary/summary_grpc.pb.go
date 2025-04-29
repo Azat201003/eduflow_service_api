@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -29,8 +30,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SummaryServiceClient interface {
 	GetSummaryById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Summary, error)
-	GetAllSummary(ctx context.Context, in *Empty, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error)
-	CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Empty, error)
+	GetAllSummary(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error)
+	CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type summaryServiceClient struct {
@@ -51,7 +52,7 @@ func (c *summaryServiceClient) GetSummaryById(ctx context.Context, in *Id, opts 
 	return out, nil
 }
 
-func (c *summaryServiceClient) GetAllSummary(ctx context.Context, in *Empty, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error) {
+func (c *summaryServiceClient) GetAllSummary(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SummaryService_GetAllSummaryClient, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &SummaryService_ServiceDesc.Streams[0], SummaryService_GetAllSummary_FullMethodName, cOpts...)
 	if err != nil {
@@ -84,9 +85,9 @@ func (x *summaryServiceGetAllSummaryClient) Recv() (*Summary, error) {
 	return m, nil
 }
 
-func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Empty, error) {
+func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Empty)
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, SummaryService_CreateSummary_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -99,8 +100,8 @@ func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *Summary, o
 // for forward compatibility
 type SummaryServiceServer interface {
 	GetSummaryById(context.Context, *Id) (*Summary, error)
-	GetAllSummary(*Empty, SummaryService_GetAllSummaryServer) error
-	CreateSummary(context.Context, *Summary) (*Empty, error)
+	GetAllSummary(*emptypb.Empty, SummaryService_GetAllSummaryServer) error
+	CreateSummary(context.Context, *Summary) (*emptypb.Empty, error)
 	mustEmbedUnimplementedSummaryServiceServer()
 }
 
@@ -111,10 +112,10 @@ type UnimplementedSummaryServiceServer struct {
 func (UnimplementedSummaryServiceServer) GetSummaryById(context.Context, *Id) (*Summary, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSummaryById not implemented")
 }
-func (UnimplementedSummaryServiceServer) GetAllSummary(*Empty, SummaryService_GetAllSummaryServer) error {
+func (UnimplementedSummaryServiceServer) GetAllSummary(*emptypb.Empty, SummaryService_GetAllSummaryServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetAllSummary not implemented")
 }
-func (UnimplementedSummaryServiceServer) CreateSummary(context.Context, *Summary) (*Empty, error) {
+func (UnimplementedSummaryServiceServer) CreateSummary(context.Context, *Summary) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSummary not implemented")
 }
 func (UnimplementedSummaryServiceServer) mustEmbedUnimplementedSummaryServiceServer() {}
@@ -149,7 +150,7 @@ func _SummaryService_GetSummaryById_Handler(srv interface{}, ctx context.Context
 }
 
 func _SummaryService_GetAllSummary_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Empty)
+	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}

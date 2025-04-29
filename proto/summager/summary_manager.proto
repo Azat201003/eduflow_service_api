@@ -4,14 +4,19 @@ package summager;
 option go_package = "gen/go/summager";
 
 service SummaryManagerService {
-    rpc StartSending(StartRequest) returns (StartResponse);
+    rpc StartSending(StartWriteRequest) returns (StartResponse);
     rpc SendChunk(WriteChunk) returns (WriteResponse);
     rpc ReadChunk(ReadRequest) returns (GetChunk);
     rpc CloseSending(EndRequest) returns (EndResponse);
-    rpc StartReading(StartRequest) returns (StartResponse);
+    rpc StartReading(StartReadRequest) returns (StartResponse);
 }
 
-message StartRequest {
+message StartReadRequest {
+    string file_path = 1;
+    uint64 chunk_size = 2;
+}
+
+message StartWriteRequest {
     string file_path = 1;
     uint64 chunk_size = 2;
     uint64 file_size = 3;
@@ -45,5 +50,5 @@ message EndRequest {
 }
 
 message EndResponse {
-    uint64 uuid = 1;
+    int32 code = 1;
 }

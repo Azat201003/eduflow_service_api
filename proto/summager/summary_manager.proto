@@ -47,6 +47,7 @@ message EndRequest {
     uint64 uuid = 1;
     string title = 2;
     string description = 3;
+    uint64 author_id = 4;
 }
 
 message EndResponse {

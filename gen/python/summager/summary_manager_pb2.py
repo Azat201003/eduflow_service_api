@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"9\n\x10StartReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\"M\n\x11StartWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12\x11\n\tfile_size\x18\x03 \x01(\x04\"\x1d\n\rStartResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\"+\n\nWriteChunk\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"\x1b\n\x08GetChunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1d\n\rWriteResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"\x1b\n\x0bReadRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x05\">\n\nEndRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"\x1b\n\x0b\x45ndResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x32\xd3\x02\n\x15SummaryManagerService\x12\x44\n\x0cStartSending\x12\x1b.summager.StartWriteRequest\x1a\x17.summager.StartResponse\x12:\n\tSendChunk\x12\x14.summager.WriteChunk\x1a\x17.summager.WriteResponse\x12\x36\n\tReadChunk\x12\x15.summager.ReadRequest\x1a\x12.summager.GetChunk\x12;\n\x0c\x43loseSending\x12\x14.summager.EndRequest\x1a\x15.summager.EndResponse\x12\x43\n\x0cStartReading\x12\x1a.summager.StartReadRequest\x1a\x17.summager.StartResponseB\x11Z\x0fgen/go/summagerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1esummager/summary_manager.proto\x12\x08summager\"9\n\x10StartReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\"M\n\x11StartWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12\x11\n\tfile_size\x18\x03 \x01(\x04\"\x1d\n\rStartResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\"+\n\nWriteChunk\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"\x1b\n\x08GetChunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1d\n\rWriteResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"\x1b\n\x0bReadRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x05\"Q\n\nEndRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tauthor_id\x18\x04 \x01(\x04\"\x1b\n\x0b\x45ndResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x32\xd3\x02\n\x15SummaryManagerService\x12\x44\n\x0cStartSending\x12\x1b.summager.StartWriteRequest\x1a\x17.summager.StartResponse\x12:\n\tSendChunk\x12\x14.summager.WriteChunk\x1a\x17.summager.WriteResponse\x12\x36\n\tReadChunk\x12\x15.summager.ReadRequest\x1a\x12.summager.GetChunk\x12;\n\x0c\x43loseSending\x12\x14.summager.EndRequest\x1a\x15.summager.EndResponse\x12\x43\n\x0cStartReading\x12\x1a.summager.StartReadRequest\x1a\x17.summager.StartResponseB\x11Z\x0fgen/go/summagerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -47,9 +47,9 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_READREQUEST']._serialized_start=318
   _globals['_READREQUEST']._serialized_end=345
   _globals['_ENDREQUEST']._serialized_start=347
-  _globals['_ENDREQUEST']._serialized_end=409
-  _globals['_ENDRESPONSE']._serialized_start=411
-  _globals['_ENDRESPONSE']._serialized_end=438
-  _globals['_SUMMARYMANAGERSERVICE']._serialized_start=441
-  _globals['_SUMMARYMANAGERSERVICE']._serialized_end=780
+  _globals['_ENDREQUEST']._serialized_end=428
+  _globals['_ENDRESPONSE']._serialized_start=430
+  _globals['_ENDRESPONSE']._serialized_end=457
+  _globals['_SUMMARYMANAGERSERVICE']._serialized_start=460
+  _globals['_SUMMARYMANAGERSERVICE']._serialized_end=799
 # @@protoc_insertion_point(module_scope)

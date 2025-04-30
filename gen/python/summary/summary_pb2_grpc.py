@@ -3,7 +3,6 @@
 import grpc
 import warnings
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from summary import summary_pb2 as summary_dot_summary__pb2
 
 GRPC_GENERATED_VERSION = '1.72.0'
@@ -40,15 +39,15 @@ class SummaryServiceStub(object):
                 request_serializer=summary_dot_summary__pb2.Id.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Summary.FromString,
                 _registered_method=True)
-        self.GetAllSummary = channel.unary_stream(
-                '/summary.SummaryService/GetAllSummary',
-                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+        self.GetFilteredSummary = channel.unary_stream(
+                '/summary.SummaryService/GetFilteredSummary',
+                request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Summary.FromString,
                 _registered_method=True)
         self.CreateSummary = channel.unary_unary(
                 '/summary.SummaryService/CreateSummary',
                 request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                response_deserializer=summary_dot_summary__pb2.Id.FromString,
                 _registered_method=True)
 
 
@@ -61,7 +60,7 @@ class SummaryServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetAllSummary(self, request, context):
+    def GetFilteredSummary(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -81,15 +80,15 @@ def add_SummaryServiceServicer_to_server(servicer, server):
                     request_deserializer=summary_dot_summary__pb2.Id.FromString,
                     response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
-            'GetAllSummary': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetAllSummary,
-                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            'GetFilteredSummary': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetFilteredSummary,
+                    request_deserializer=summary_dot_summary__pb2.Summary.FromString,
                     response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
             'CreateSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSummary,
                     request_deserializer=summary_dot_summary__pb2.Summary.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    response_serializer=summary_dot_summary__pb2.Id.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -130,7 +129,7 @@ class SummaryService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetAllSummary(request,
+    def GetFilteredSummary(request,
             target,
             options=(),
             channel_credentials=None,
@@ -143,8 +142,8 @@ class SummaryService(object):
         return grpc.experimental.unary_stream(
             request,
             target,
-            '/summary.SummaryService/GetAllSummary',
-            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            '/summary.SummaryService/GetFilteredSummary',
+            summary_dot_summary__pb2.Summary.SerializeToString,
             summary_dot_summary__pb2.Summary.FromString,
             options,
             channel_credentials,
@@ -172,7 +171,7 @@ class SummaryService(object):
             target,
             '/summary.SummaryService/CreateSummary',
             summary_dot_summary__pb2.Summary.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            summary_dot_summary__pb2.Id.FromString,
             options,
             channel_credentials,
             insecure,

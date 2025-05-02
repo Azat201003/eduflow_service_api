@@ -19,17 +19,17 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	SummaryManagerService_StartSending_FullMethodName = "/summager.SummaryManagerService/StartSending"
-	SummaryManagerService_SendChunk_FullMethodName    = "/summager.SummaryManagerService/SendChunk"
-	SummaryManagerService_ReadChunk_FullMethodName    = "/summager.SummaryManagerService/ReadChunk"
-	SummaryManagerService_CloseSending_FullMethodName = "/summager.SummaryManagerService/CloseSending"
-	SummaryManagerService_StartReading_FullMethodName = "/summager.SummaryManagerService/StartReading"
+	FileManagerService_StartSending_FullMethodName = "/filager.FileManagerService/StartSending"
+	FileManagerService_SendChunk_FullMethodName    = "/filager.FileManagerService/SendChunk"
+	FileManagerService_ReadChunk_FullMethodName    = "/filager.FileManagerService/ReadChunk"
+	FileManagerService_CloseSending_FullMethodName = "/filager.FileManagerService/CloseSending"
+	FileManagerService_StartReading_FullMethodName = "/filager.FileManagerService/StartReading"
 )
 
-// SummaryManagerServiceClient is the client API for SummaryManagerService service.
+// FileManagerServiceClient is the client API for FileManagerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type SummaryManagerServiceClient interface {
+type FileManagerServiceClient interface {
 	StartSending(ctx context.Context, in *StartWriteRequest, opts ...grpc.CallOption) (*StartResponse, error)
 	SendChunk(ctx context.Context, in *WriteChunk, opts ...grpc.CallOption) (*WriteResponse, error)
 	ReadChunk(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*GetChunk, error)
@@ -37,224 +37,224 @@ type SummaryManagerServiceClient interface {
 	StartReading(ctx context.Context, in *StartReadRequest, opts ...grpc.CallOption) (*StartResponse, error)
 }
 
-type summaryManagerServiceClient struct {
+type fileManagerServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewSummaryManagerServiceClient(cc grpc.ClientConnInterface) SummaryManagerServiceClient {
-	return &summaryManagerServiceClient{cc}
+func NewFileManagerServiceClient(cc grpc.ClientConnInterface) FileManagerServiceClient {
+	return &fileManagerServiceClient{cc}
 }
 
-func (c *summaryManagerServiceClient) StartSending(ctx context.Context, in *StartWriteRequest, opts ...grpc.CallOption) (*StartResponse, error) {
+func (c *fileManagerServiceClient) StartSending(ctx context.Context, in *StartWriteRequest, opts ...grpc.CallOption) (*StartResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(StartResponse)
-	err := c.cc.Invoke(ctx, SummaryManagerService_StartSending_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, FileManagerService_StartSending_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *summaryManagerServiceClient) SendChunk(ctx context.Context, in *WriteChunk, opts ...grpc.CallOption) (*WriteResponse, error) {
+func (c *fileManagerServiceClient) SendChunk(ctx context.Context, in *WriteChunk, opts ...grpc.CallOption) (*WriteResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(WriteResponse)
-	err := c.cc.Invoke(ctx, SummaryManagerService_SendChunk_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, FileManagerService_SendChunk_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *summaryManagerServiceClient) ReadChunk(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*GetChunk, error) {
+func (c *fileManagerServiceClient) ReadChunk(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*GetChunk, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetChunk)
-	err := c.cc.Invoke(ctx, SummaryManagerService_ReadChunk_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, FileManagerService_ReadChunk_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *summaryManagerServiceClient) CloseSending(ctx context.Context, in *EndRequest, opts ...grpc.CallOption) (*EndResponse, error) {
+func (c *fileManagerServiceClient) CloseSending(ctx context.Context, in *EndRequest, opts ...grpc.CallOption) (*EndResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EndResponse)
-	err := c.cc.Invoke(ctx, SummaryManagerService_CloseSending_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, FileManagerService_CloseSending_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *summaryManagerServiceClient) StartReading(ctx context.Context, in *StartReadRequest, opts ...grpc.CallOption) (*StartResponse, error) {
+func (c *fileManagerServiceClient) StartReading(ctx context.Context, in *StartReadRequest, opts ...grpc.CallOption) (*StartResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(StartResponse)
-	err := c.cc.Invoke(ctx, SummaryManagerService_StartReading_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, FileManagerService_StartReading_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// SummaryManagerServiceServer is the server API for SummaryManagerService service.
-// All implementations must embed UnimplementedSummaryManagerServiceServer
+// FileManagerServiceServer is the server API for FileManagerService service.
+// All implementations must embed UnimplementedFileManagerServiceServer
 // for forward compatibility
-type SummaryManagerServiceServer interface {
+type FileManagerServiceServer interface {
 	StartSending(context.Context, *StartWriteRequest) (*StartResponse, error)
 	SendChunk(context.Context, *WriteChunk) (*WriteResponse, error)
 	ReadChunk(context.Context, *ReadRequest) (*GetChunk, error)
 	CloseSending(context.Context, *EndRequest) (*EndResponse, error)
 	StartReading(context.Context, *StartReadRequest) (*StartResponse, error)
-	mustEmbedUnimplementedSummaryManagerServiceServer()
+	mustEmbedUnimplementedFileManagerServiceServer()
 }
 
-// UnimplementedSummaryManagerServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedSummaryManagerServiceServer struct {
+// UnimplementedFileManagerServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedFileManagerServiceServer struct {
 }
 
-func (UnimplementedSummaryManagerServiceServer) StartSending(context.Context, *StartWriteRequest) (*StartResponse, error) {
+func (UnimplementedFileManagerServiceServer) StartSending(context.Context, *StartWriteRequest) (*StartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartSending not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) SendChunk(context.Context, *WriteChunk) (*WriteResponse, error) {
+func (UnimplementedFileManagerServiceServer) SendChunk(context.Context, *WriteChunk) (*WriteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendChunk not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) ReadChunk(context.Context, *ReadRequest) (*GetChunk, error) {
+func (UnimplementedFileManagerServiceServer) ReadChunk(context.Context, *ReadRequest) (*GetChunk, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadChunk not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) CloseSending(context.Context, *EndRequest) (*EndResponse, error) {
+func (UnimplementedFileManagerServiceServer) CloseSending(context.Context, *EndRequest) (*EndResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CloseSending not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) StartReading(context.Context, *StartReadRequest) (*StartResponse, error) {
+func (UnimplementedFileManagerServiceServer) StartReading(context.Context, *StartReadRequest) (*StartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartReading not implemented")
 }
-func (UnimplementedSummaryManagerServiceServer) mustEmbedUnimplementedSummaryManagerServiceServer() {}
+func (UnimplementedFileManagerServiceServer) mustEmbedUnimplementedFileManagerServiceServer() {}
 
-// UnsafeSummaryManagerServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to SummaryManagerServiceServer will
+// UnsafeFileManagerServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to FileManagerServiceServer will
 // result in compilation errors.
-type UnsafeSummaryManagerServiceServer interface {
-	mustEmbedUnimplementedSummaryManagerServiceServer()
+type UnsafeFileManagerServiceServer interface {
+	mustEmbedUnimplementedFileManagerServiceServer()
 }
 
-func RegisterSummaryManagerServiceServer(s grpc.ServiceRegistrar, srv SummaryManagerServiceServer) {
-	s.RegisterService(&SummaryManagerService_ServiceDesc, srv)
+func RegisterFileManagerServiceServer(s grpc.ServiceRegistrar, srv FileManagerServiceServer) {
+	s.RegisterService(&FileManagerService_ServiceDesc, srv)
 }
 
-func _SummaryManagerService_StartSending_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileManagerService_StartSending_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(StartWriteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SummaryManagerServiceServer).StartSending(ctx, in)
+		return srv.(FileManagerServiceServer).StartSending(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SummaryManagerService_StartSending_FullMethodName,
+		FullMethod: FileManagerService_StartSending_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).StartSending(ctx, req.(*StartWriteRequest))
+		return srv.(FileManagerServiceServer).StartSending(ctx, req.(*StartWriteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SummaryManagerService_SendChunk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileManagerService_SendChunk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(WriteChunk)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SummaryManagerServiceServer).SendChunk(ctx, in)
+		return srv.(FileManagerServiceServer).SendChunk(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SummaryManagerService_SendChunk_FullMethodName,
+		FullMethod: FileManagerService_SendChunk_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).SendChunk(ctx, req.(*WriteChunk))
+		return srv.(FileManagerServiceServer).SendChunk(ctx, req.(*WriteChunk))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SummaryManagerService_ReadChunk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileManagerService_ReadChunk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SummaryManagerServiceServer).ReadChunk(ctx, in)
+		return srv.(FileManagerServiceServer).ReadChunk(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SummaryManagerService_ReadChunk_FullMethodName,
+		FullMethod: FileManagerService_ReadChunk_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).ReadChunk(ctx, req.(*ReadRequest))
+		return srv.(FileManagerServiceServer).ReadChunk(ctx, req.(*ReadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SummaryManagerService_CloseSending_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileManagerService_CloseSending_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(EndRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SummaryManagerServiceServer).CloseSending(ctx, in)
+		return srv.(FileManagerServiceServer).CloseSending(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SummaryManagerService_CloseSending_FullMethodName,
+		FullMethod: FileManagerService_CloseSending_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).CloseSending(ctx, req.(*EndRequest))
+		return srv.(FileManagerServiceServer).CloseSending(ctx, req.(*EndRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SummaryManagerService_StartReading_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileManagerService_StartReading_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(StartReadRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SummaryManagerServiceServer).StartReading(ctx, in)
+		return srv.(FileManagerServiceServer).StartReading(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SummaryManagerService_StartReading_FullMethodName,
+		FullMethod: FileManagerService_StartReading_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryManagerServiceServer).StartReading(ctx, req.(*StartReadRequest))
+		return srv.(FileManagerServiceServer).StartReading(ctx, req.(*StartReadRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// SummaryManagerService_ServiceDesc is the grpc.ServiceDesc for SummaryManagerService service.
+// FileManagerService_ServiceDesc is the grpc.ServiceDesc for FileManagerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var SummaryManagerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "summager.SummaryManagerService",
-	HandlerType: (*SummaryManagerServiceServer)(nil),
+var FileManagerService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "filager.FileManagerService",
+	HandlerType: (*FileManagerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "StartSending",
-			Handler:    _SummaryManagerService_StartSending_Handler,
+			Handler:    _FileManagerService_StartSending_Handler,
 		},
 		{
 			MethodName: "SendChunk",
-			Handler:    _SummaryManagerService_SendChunk_Handler,
+			Handler:    _FileManagerService_SendChunk_Handler,
 		},
 		{
 			MethodName: "ReadChunk",
-			Handler:    _SummaryManagerService_ReadChunk_Handler,
+			Handler:    _FileManagerService_ReadChunk_Handler,
 		},
 		{
 			MethodName: "CloseSending",
-			Handler:    _SummaryManagerService_CloseSending_Handler,
+			Handler:    _FileManagerService_CloseSending_Handler,
 		},
 		{
 			MethodName: "StartReading",
-			Handler:    _SummaryManagerService_StartReading_Handler,
+			Handler:    _FileManagerService_StartReading_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

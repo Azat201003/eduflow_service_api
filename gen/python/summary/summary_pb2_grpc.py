@@ -49,6 +49,16 @@ class SummaryServiceStub(object):
                 request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Id.FromString,
                 _registered_method=True)
+        self.DeleteSummary = channel.unary_unary(
+                '/summary.SummaryService/DeleteSummary',
+                request_serializer=summary_dot_summary__pb2.Id.SerializeToString,
+                response_deserializer=summary_dot_summary__pb2.Summary.FromString,
+                _registered_method=True)
+        self.UpdateSummary = channel.unary_unary(
+                '/summary.SummaryService/UpdateSummary',
+                request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
+                response_deserializer=summary_dot_summary__pb2.Summary.FromString,
+                _registered_method=True)
 
 
 class SummaryServiceServicer(object):
@@ -72,6 +82,19 @@ class SummaryServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DeleteSummary(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateSummary(self, request, context):
+        """! You need to send the id in the request and what you want to change. It will return the summary that was before the change
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SummaryServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -89,6 +112,16 @@ def add_SummaryServiceServicer_to_server(servicer, server):
                     servicer.CreateSummary,
                     request_deserializer=summary_dot_summary__pb2.Summary.FromString,
                     response_serializer=summary_dot_summary__pb2.Id.SerializeToString,
+            ),
+            'DeleteSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteSummary,
+                    request_deserializer=summary_dot_summary__pb2.Id.FromString,
+                    response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
+            ),
+            'UpdateSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSummary,
+                    request_deserializer=summary_dot_summary__pb2.Summary.FromString,
+                    response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -172,6 +205,60 @@ class SummaryService(object):
             '/summary.SummaryService/CreateSummary',
             summary_dot_summary__pb2.Summary.SerializeToString,
             summary_dot_summary__pb2.Id.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/summary.SummaryService/DeleteSummary',
+            summary_dot_summary__pb2.Id.SerializeToString,
+            summary_dot_summary__pb2.Summary.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/summary.SummaryService/UpdateSummary',
+            summary_dot_summary__pb2.Summary.SerializeToString,
+            summary_dot_summary__pb2.Summary.FromString,
             options,
             channel_credentials,
             insecure,

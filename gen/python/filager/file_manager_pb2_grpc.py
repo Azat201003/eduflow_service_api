@@ -25,7 +25,7 @@ if _version_not_supported:
     )
 
 
-class SummaryManagerServiceStub(object):
+class FileManagerServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -35,33 +35,33 @@ class SummaryManagerServiceStub(object):
             channel: A grpc.Channel.
         """
         self.StartSending = channel.unary_unary(
-                '/summager.SummaryManagerService/StartSending',
+                '/filager.FileManagerService/StartSending',
                 request_serializer=filager_dot_file__manager__pb2.StartWriteRequest.SerializeToString,
                 response_deserializer=filager_dot_file__manager__pb2.StartResponse.FromString,
                 _registered_method=True)
         self.SendChunk = channel.unary_unary(
-                '/summager.SummaryManagerService/SendChunk',
+                '/filager.FileManagerService/SendChunk',
                 request_serializer=filager_dot_file__manager__pb2.WriteChunk.SerializeToString,
                 response_deserializer=filager_dot_file__manager__pb2.WriteResponse.FromString,
                 _registered_method=True)
         self.ReadChunk = channel.unary_unary(
-                '/summager.SummaryManagerService/ReadChunk',
+                '/filager.FileManagerService/ReadChunk',
                 request_serializer=filager_dot_file__manager__pb2.ReadRequest.SerializeToString,
                 response_deserializer=filager_dot_file__manager__pb2.GetChunk.FromString,
                 _registered_method=True)
         self.CloseSending = channel.unary_unary(
-                '/summager.SummaryManagerService/CloseSending',
+                '/filager.FileManagerService/CloseSending',
                 request_serializer=filager_dot_file__manager__pb2.EndRequest.SerializeToString,
                 response_deserializer=filager_dot_file__manager__pb2.EndResponse.FromString,
                 _registered_method=True)
         self.StartReading = channel.unary_unary(
-                '/summager.SummaryManagerService/StartReading',
+                '/filager.FileManagerService/StartReading',
                 request_serializer=filager_dot_file__manager__pb2.StartReadRequest.SerializeToString,
                 response_deserializer=filager_dot_file__manager__pb2.StartResponse.FromString,
                 _registered_method=True)
 
 
-class SummaryManagerServiceServicer(object):
+class FileManagerServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def StartSending(self, request, context):
@@ -95,7 +95,7 @@ class SummaryManagerServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_SummaryManagerServiceServicer_to_server(servicer, server):
+def add_FileManagerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'StartSending': grpc.unary_unary_rpc_method_handler(
                     servicer.StartSending,
@@ -124,13 +124,13 @@ def add_SummaryManagerServiceServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'summager.SummaryManagerService', rpc_method_handlers)
+            'filager.FileManagerService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('summager.SummaryManagerService', rpc_method_handlers)
+    server.add_registered_method_handlers('filager.FileManagerService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class SummaryManagerService(object):
+class FileManagerService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -147,7 +147,7 @@ class SummaryManagerService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/summager.SummaryManagerService/StartSending',
+            '/filager.FileManagerService/StartSending',
             filager_dot_file__manager__pb2.StartWriteRequest.SerializeToString,
             filager_dot_file__manager__pb2.StartResponse.FromString,
             options,
@@ -174,7 +174,7 @@ class SummaryManagerService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/summager.SummaryManagerService/SendChunk',
+            '/filager.FileManagerService/SendChunk',
             filager_dot_file__manager__pb2.WriteChunk.SerializeToString,
             filager_dot_file__manager__pb2.WriteResponse.FromString,
             options,
@@ -201,7 +201,7 @@ class SummaryManagerService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/summager.SummaryManagerService/ReadChunk',
+            '/filager.FileManagerService/ReadChunk',
             filager_dot_file__manager__pb2.ReadRequest.SerializeToString,
             filager_dot_file__manager__pb2.GetChunk.FromString,
             options,
@@ -228,7 +228,7 @@ class SummaryManagerService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/summager.SummaryManagerService/CloseSending',
+            '/filager.FileManagerService/CloseSending',
             filager_dot_file__manager__pb2.EndRequest.SerializeToString,
             filager_dot_file__manager__pb2.EndResponse.FromString,
             options,
@@ -255,7 +255,7 @@ class SummaryManagerService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/summager.SummaryManagerService/StartReading',
+            '/filager.FileManagerService/StartReading',
             filager_dot_file__manager__pb2.StartReadRequest.SerializeToString,
             filager_dot_file__manager__pb2.StartResponse.FromString,
             options,

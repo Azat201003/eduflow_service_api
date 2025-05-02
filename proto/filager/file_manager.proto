@@ -1,7 +1,7 @@
 syntax = "proto3";
 package summager;
 
-option go_package = "gen/go/summager";
+option go_package = "gen/go/filager";
 
 service SummaryManagerService {
     rpc StartSending(StartWriteRequest) returns (StartResponse);
@@ -11,15 +11,22 @@ service SummaryManagerService {
     rpc StartReading(StartReadRequest) returns (StartResponse);
 }
 
+enum FileType {
+    DOCUMENT = 0;
+    IMAGE = 1;
+}
+
 message StartReadRequest {
     string file_path = 1;
     uint64 chunk_size = 2;
+    FileType file_type = 3;
 }
 
 message StartWriteRequest {
     string file_path = 1;
     uint64 chunk_size = 2;
     uint64 file_size = 3;
+    FileType file_type = 4;
 }
 
 message StartResponse {

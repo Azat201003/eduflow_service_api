@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	SummaryService_GetSummaryById_FullMethodName     = "/summary.SummaryService/GetSummaryById"
-	SummaryService_GetFilteredSummary_FullMethodName = "/summary.SummaryService/GetFilteredSummary"
-	SummaryService_CreateSummary_FullMethodName      = "/summary.SummaryService/CreateSummary"
+	SummaryService_GetSummaryById_FullMethodName       = "/summary.SummaryService/GetSummaryById"
+	SummaryService_GetFilteredSummaries_FullMethodName = "/summary.SummaryService/GetFilteredSummaries"
+	SummaryService_CreateSummary_FullMethodName        = "/summary.SummaryService/CreateSummary"
 )
 
 // SummaryServiceClient is the client API for SummaryService service.
@@ -29,7 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SummaryServiceClient interface {
 	GetSummaryById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Summary, error)
-	GetFilteredSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (SummaryService_GetFilteredSummaryClient, error)
+	GetFilteredSummaries(ctx context.Context, in *Summary, opts ...grpc.CallOption) (SummaryService_GetFilteredSummariesClient, error)
 	CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Id, error)
 }
 
@@ -51,13 +51,13 @@ func (c *summaryServiceClient) GetSummaryById(ctx context.Context, in *Id, opts 
 	return out, nil
 }
 
-func (c *summaryServiceClient) GetFilteredSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (SummaryService_GetFilteredSummaryClient, error) {
+func (c *summaryServiceClient) GetFilteredSummaries(ctx context.Context, in *Summary, opts ...grpc.CallOption) (SummaryService_GetFilteredSummariesClient, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &SummaryService_ServiceDesc.Streams[0], SummaryService_GetFilteredSummary_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &SummaryService_ServiceDesc.Streams[0], SummaryService_GetFilteredSummaries_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &summaryServiceGetFilteredSummaryClient{ClientStream: stream}
+	x := &summaryServiceGetFilteredSummariesClient{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -67,16 +67,16 @@ func (c *summaryServiceClient) GetFilteredSummary(ctx context.Context, in *Summa
 	return x, nil
 }
 
-type SummaryService_GetFilteredSummaryClient interface {
+type SummaryService_GetFilteredSummariesClient interface {
 	Recv() (*Summary, error)
 	grpc.ClientStream
 }
 
-type summaryServiceGetFilteredSummaryClient struct {
+type summaryServiceGetFilteredSummariesClient struct {
 	grpc.ClientStream
 }
 
-func (x *summaryServiceGetFilteredSummaryClient) Recv() (*Summary, error) {
+func (x *summaryServiceGetFilteredSummariesClient) Recv() (*Summary, error) {
 	m := new(Summary)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *Summary, o
 // for forward compatibility
 type SummaryServiceServer interface {
 	GetSummaryById(context.Context, *Id) (*Summary, error)
-	GetFilteredSummary(*Summary, SummaryService_GetFilteredSummaryServer) error
+	GetFilteredSummaries(*Summary, SummaryService_GetFilteredSummariesServer) error
 	CreateSummary(context.Context, *Summary) (*Id, error)
 	mustEmbedUnimplementedSummaryServiceServer()
 }
@@ -111,8 +111,8 @@ type UnimplementedSummaryServiceServer struct {
 func (UnimplementedSummaryServiceServer) GetSummaryById(context.Context, *Id) (*Summary, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSummaryById not implemented")
 }
-func (UnimplementedSummaryServiceServer) GetFilteredSummary(*Summary, SummaryService_GetFilteredSummaryServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetFilteredSummary not implemented")
+func (UnimplementedSummaryServiceServer) GetFilteredSummaries(*Summary, SummaryService_GetFilteredSummariesServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetFilteredSummaries not implemented")
 }
 func (UnimplementedSummaryServiceServer) CreateSummary(context.Context, *Summary) (*Id, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSummary not implemented")
@@ -148,24 +148,24 @@ func _SummaryService_GetSummaryById_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SummaryService_GetFilteredSummary_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _SummaryService_GetFilteredSummaries_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(Summary)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(SummaryServiceServer).GetFilteredSummary(m, &summaryServiceGetFilteredSummaryServer{ServerStream: stream})
+	return srv.(SummaryServiceServer).GetFilteredSummaries(m, &summaryServiceGetFilteredSummariesServer{ServerStream: stream})
 }
 
-type SummaryService_GetFilteredSummaryServer interface {
+type SummaryService_GetFilteredSummariesServer interface {
 	Send(*Summary) error
 	grpc.ServerStream
 }
 
-type summaryServiceGetFilteredSummaryServer struct {
+type summaryServiceGetFilteredSummariesServer struct {
 	grpc.ServerStream
 }
 
-func (x *summaryServiceGetFilteredSummaryServer) Send(m *Summary) error {
+func (x *summaryServiceGetFilteredSummariesServer) Send(m *Summary) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -205,8 +205,8 @@ var SummaryService_ServiceDesc = grpc.ServiceDesc{
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetFilteredSummary",
-			Handler:       _SummaryService_GetFilteredSummary_Handler,
+			StreamName:    "GetFilteredSummaries",
+			Handler:       _SummaryService_GetFilteredSummaries_Handler,
 			ServerStreams: true,
 		},
 	},

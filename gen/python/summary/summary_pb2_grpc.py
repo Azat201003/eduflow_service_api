@@ -39,8 +39,8 @@ class SummaryServiceStub(object):
                 request_serializer=summary_dot_summary__pb2.Id.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Summary.FromString,
                 _registered_method=True)
-        self.GetFilteredSummary = channel.unary_stream(
-                '/summary.SummaryService/GetFilteredSummary',
+        self.GetFilteredSummaries = channel.unary_stream(
+                '/summary.SummaryService/GetFilteredSummaries',
                 request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Summary.FromString,
                 _registered_method=True)
@@ -60,7 +60,7 @@ class SummaryServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetFilteredSummary(self, request, context):
+    def GetFilteredSummaries(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -80,8 +80,8 @@ def add_SummaryServiceServicer_to_server(servicer, server):
                     request_deserializer=summary_dot_summary__pb2.Id.FromString,
                     response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
-            'GetFilteredSummary': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetFilteredSummary,
+            'GetFilteredSummaries': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetFilteredSummaries,
                     request_deserializer=summary_dot_summary__pb2.Summary.FromString,
                     response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
@@ -129,7 +129,7 @@ class SummaryService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetFilteredSummary(request,
+    def GetFilteredSummaries(request,
             target,
             options=(),
             channel_credentials=None,
@@ -142,7 +142,7 @@ class SummaryService(object):
         return grpc.experimental.unary_stream(
             request,
             target,
-            '/summary.SummaryService/GetFilteredSummary',
+            '/summary.SummaryService/GetFilteredSummaries',
             summary_dot_summary__pb2.Summary.SerializeToString,
             summary_dot_summary__pb2.Summary.FromString,
             options,

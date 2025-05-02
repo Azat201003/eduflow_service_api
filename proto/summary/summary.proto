@@ -1,13 +1,14 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
 package summary;
 
 option go_package = "gen/go/summary";
 
 service SummaryService {
     rpc GetSummaryById(Id) returns (Summary);
-    rpc GetFilteredSummary(Summary) returns (stream Summary);
+    rpc GetFilteredSummaries(Summary) returns (stream Summary);
     rpc CreateSummary(Summary) returns (Id);
+    rpc DeleteSummary(Id) returns (Summary);
+    rpc UpdateSummary(Summary) returns (Summary); // ! You need to send the id in the request and what you want to change. It will return the summary that was before the change
 }
 
 message Id {

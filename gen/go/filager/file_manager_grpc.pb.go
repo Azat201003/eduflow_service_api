@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v6.30.2
-// source: summager/summary_manager.proto
+// source: filager/file_manager.proto
 
-package summager
+package filager
 
 import (
 	context "context"
@@ -258,5 +258,5 @@ var SummaryManagerService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "summager/summary_manager.proto",
+	Metadata: "filager/file_manager.proto",
 }

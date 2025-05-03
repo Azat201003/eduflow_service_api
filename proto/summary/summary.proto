@@ -5,7 +5,7 @@ option go_package = "gen/go/summary";
 
 service SummaryService {
     rpc GetSummaryById(Id) returns (Summary);
-    rpc GetFilteredSummaries(Summary) returns (stream Summary);
+    rpc GetFilteredSummaries(FilterRequest) returns (stream Summary);
     rpc CreateSummary(Summary) returns (Id);
     rpc DeleteSummary(Id) returns (Summary);
     rpc UpdateSummary(Summary) returns (Summary); // ! You need to send the id in the request and what you want to change. It will return the summary that was before the change
@@ -21,4 +21,21 @@ message Summary {
     string description = 3;
     string file_path = 4;
     Id author_id = 5;
+    repeated Tag tags = 6;
+}
+
+message Tag {
+    string name = 1;
+    string color = 2;
+    Id id = 3;
+}
+
+message Page {
+    uint32 size = 1;
+    uint32 number = 2;
+}
+
+message FilterRequest {
+    Summary filter = 1;
+    uint32 page_size = 2;
 }

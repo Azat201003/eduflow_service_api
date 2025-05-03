@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"2\n\x0c\x43reditionals\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\x04\"@\n\x04User\x12\x14\n\x02id\x18\x01 \x01(\x0b\x32\x08.user.Id\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x10\n\x08is_staff\x18\x04 \x01(\x08\"\x16\n\x05Token\x12\r\n\x05token\x18\x01 \x01(\t2\xb4\x01\n\x0bUserService\x12+\n\x08Register\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12(\n\x05Login\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12#\n\x0bGetUserById\x12\x08.user.Id\x1a\n.user.User\x12)\n\x0eGetUserByToken\x12\x0b.user.Token\x1a\n.user.UserB\rZ\x0bgen/go/userb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"2\n\x0c\x43reditionals\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\x04\"@\n\x04User\x12\x14\n\x02id\x18\x01 \x01(\x0b\x32\x08.user.Id\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x10\n\x08is_staff\x18\x04 \x01(\x08\"\x16\n\x05Token\x12\r\n\x05token\x18\x01 \x01(\t2\xe0\x01\n\x0bUserService\x12+\n\x08Register\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12(\n\x05Login\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12#\n\x0bGetUserById\x12\x08.user.Id\x1a\n.user.User\x12)\n\x0eGetUserByToken\x12\x0b.user.Token\x1a\n.user.User\x12*\n\x10GetFollowersById\x12\x08.user.Id\x1a\n.user.User0\x01\x42\rZ\x0bgen/go/userb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -41,5 +41,5 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_TOKEN']._serialized_start=161
   _globals['_TOKEN']._serialized_end=183
   _globals['_USERSERVICE']._serialized_start=186
-  _globals['_USERSERVICE']._serialized_end=366
+  _globals['_USERSERVICE']._serialized_end=410
 # @@protoc_insertion_point(module_scope)

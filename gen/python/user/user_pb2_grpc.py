@@ -54,6 +54,11 @@ class UserServiceStub(object):
                 request_serializer=user_dot_user__pb2.Token.SerializeToString,
                 response_deserializer=user_dot_user__pb2.User.FromString,
                 _registered_method=True)
+        self.GetFollowersById = channel.unary_stream(
+                '/user.UserService/GetFollowersById',
+                request_serializer=user_dot_user__pb2.Id.SerializeToString,
+                response_deserializer=user_dot_user__pb2.User.FromString,
+                _registered_method=True)
 
 
 class UserServiceServicer(object):
@@ -85,6 +90,12 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetFollowersById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -106,6 +117,11 @@ def add_UserServiceServicer_to_server(servicer, server):
             'GetUserByToken': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserByToken,
                     request_deserializer=user_dot_user__pb2.Token.FromString,
+                    response_serializer=user_dot_user__pb2.User.SerializeToString,
+            ),
+            'GetFollowersById': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetFollowersById,
+                    request_deserializer=user_dot_user__pb2.Id.FromString,
                     response_serializer=user_dot_user__pb2.User.SerializeToString,
             ),
     }
@@ -216,6 +232,33 @@ class UserService(object):
             target,
             '/user.UserService/GetUserByToken',
             user_dot_user__pb2.Token.SerializeToString,
+            user_dot_user__pb2.User.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetFollowersById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/user.UserService/GetFollowersById',
+            user_dot_user__pb2.Id.SerializeToString,
             user_dot_user__pb2.User.FromString,
             options,
             channel_credentials,

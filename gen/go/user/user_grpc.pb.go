@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	UserService_Register_FullMethodName       = "/user.UserService/Register"
-	UserService_Login_FullMethodName          = "/user.UserService/Login"
-	UserService_GetUserById_FullMethodName    = "/user.UserService/GetUserById"
-	UserService_GetUserByToken_FullMethodName = "/user.UserService/GetUserByToken"
+	UserService_Register_FullMethodName         = "/user.UserService/Register"
+	UserService_Login_FullMethodName            = "/user.UserService/Login"
+	UserService_GetUserById_FullMethodName      = "/user.UserService/GetUserById"
+	UserService_GetUserByToken_FullMethodName   = "/user.UserService/GetUserByToken"
+	UserService_GetFollowersById_FullMethodName = "/user.UserService/GetFollowersById"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -33,6 +34,7 @@ type UserServiceClient interface {
 	Login(ctx context.Context, in *Creditionals, opts ...grpc.CallOption) (*Token, error)
 	GetUserById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*User, error)
 	GetUserByToken(ctx context.Context, in *Token, opts ...grpc.CallOption) (*User, error)
+	GetFollowersById(ctx context.Context, in *Id, opts ...grpc.CallOption) (UserService_GetFollowersByIdClient, error)
 }
 
 type userServiceClient struct {
@@ -83,6 +85,39 @@ func (c *userServiceClient) GetUserByToken(ctx context.Context, in *Token, opts 
 	return out, nil
 }
 
+func (c *userServiceClient) GetFollowersById(ctx context.Context, in *Id, opts ...grpc.CallOption) (UserService_GetFollowersByIdClient, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &UserService_ServiceDesc.Streams[0], UserService_GetFollowersById_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &userServiceGetFollowersByIdClient{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type UserService_GetFollowersByIdClient interface {
+	Recv() (*User, error)
+	grpc.ClientStream
+}
+
+type userServiceGetFollowersByIdClient struct {
+	grpc.ClientStream
+}
+
+func (x *userServiceGetFollowersByIdClient) Recv() (*User, error) {
+	m := new(User)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -91,6 +126,7 @@ type UserServiceServer interface {
 	Login(context.Context, *Creditionals) (*Token, error)
 	GetUserById(context.Context, *Id) (*User, error)
 	GetUserByToken(context.Context, *Token) (*User, error)
+	GetFollowersById(*Id, UserService_GetFollowersByIdServer) error
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -109,6 +145,9 @@ func (UnimplementedUserServiceServer) GetUserById(context.Context, *Id) (*User, 
 }
 func (UnimplementedUserServiceServer) GetUserByToken(context.Context, *Token) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
+}
+func (UnimplementedUserServiceServer) GetFollowersById(*Id, UserService_GetFollowersByIdServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetFollowersById not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -195,6 +234,27 @@ func _UserService_GetUserByToken_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetFollowersById_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Id)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(UserServiceServer).GetFollowersById(m, &userServiceGetFollowersByIdServer{ServerStream: stream})
+}
+
+type UserService_GetFollowersByIdServer interface {
+	Send(*User) error
+	grpc.ServerStream
+}
+
+type userServiceGetFollowersByIdServer struct {
+	grpc.ServerStream
+}
+
+func (x *userServiceGetFollowersByIdServer) Send(m *User) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -219,6 +279,12 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetUserByToken_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetFollowersById",
+			Handler:       _UserService_GetFollowersById_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "user/user.proto",
 }

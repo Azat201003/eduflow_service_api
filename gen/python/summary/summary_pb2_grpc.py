@@ -41,7 +41,7 @@ class SummaryServiceStub(object):
                 _registered_method=True)
         self.GetFilteredSummaries = channel.unary_stream(
                 '/summary.SummaryService/GetFilteredSummaries',
-                request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
+                request_serializer=summary_dot_summary__pb2.FilterRequest.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Summary.FromString,
                 _registered_method=True)
         self.CreateSummary = channel.unary_unary(
@@ -105,7 +105,7 @@ def add_SummaryServiceServicer_to_server(servicer, server):
             ),
             'GetFilteredSummaries': grpc.unary_stream_rpc_method_handler(
                     servicer.GetFilteredSummaries,
-                    request_deserializer=summary_dot_summary__pb2.Summary.FromString,
+                    request_deserializer=summary_dot_summary__pb2.FilterRequest.FromString,
                     response_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
             ),
             'CreateSummary': grpc.unary_unary_rpc_method_handler(
@@ -176,7 +176,7 @@ class SummaryService(object):
             request,
             target,
             '/summary.SummaryService/GetFilteredSummaries',
-            summary_dot_summary__pb2.Summary.SerializeToString,
+            summary_dot_summary__pb2.FilterRequest.SerializeToString,
             summary_dot_summary__pb2.Summary.FromString,
             options,
             channel_credentials,

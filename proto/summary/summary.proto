@@ -37,5 +37,5 @@ message Page {
 
 message FilterRequest {
     Summary filter = 1;
-    uint32 page_size = 2;
+    Page page_info = 2;
 }

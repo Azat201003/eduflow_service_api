@@ -37,5 +37,5 @@ message Page {
 
 message FilterRequest {
     Summary filter = 1;
-    Page page_info = 2;
+    Page page = 2;
 }

@@ -12,8 +12,9 @@ service FileManagerService {
 }
 
 enum FileType {
-    DOCUMENT = 0;
-    IMAGE = 1;
+    UNDEFIGNED = 0;
+    DOCUMENT = 1;
+    IMAGE = 2;
 }
 
 message StartReadRequest {

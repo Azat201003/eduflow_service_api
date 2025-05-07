@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1a\x66ilager/file_manager.proto\x12\x07\x66ilager\"_\n\x10StartReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12$\n\tfile_type\x18\x03 \x01(\x0e\x32\x11.filager.FileType\"s\n\x11StartWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12\x11\n\tfile_size\x18\x03 \x01(\x04\x12$\n\tfile_type\x18\x04 \x01(\x0e\x32\x11.filager.FileType\"\x1d\n\rStartResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\"+\n\nWriteChunk\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"\x1b\n\x08GetChunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1d\n\rWriteResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"1\n\x0bReadRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x14\n\x0c\x63hunk_number\x18\x02 \x01(\x04\"Q\n\nEndRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tauthor_id\x18\x04 \x01(\x04\"\x1b\n\x0b\x45ndResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05*#\n\x08\x46ileType\x12\x0c\n\x08\x44OCUMENT\x10\x00\x12\t\n\x05IMAGE\x10\x01\x32\xc6\x02\n\x12\x46ileManagerService\x12\x42\n\x0cStartSending\x12\x1a.filager.StartWriteRequest\x1a\x16.filager.StartResponse\x12\x38\n\tSendChunk\x12\x13.filager.WriteChunk\x1a\x16.filager.WriteResponse\x12\x34\n\tReadChunk\x12\x14.filager.ReadRequest\x1a\x11.filager.GetChunk\x12\x39\n\x0c\x43loseSending\x12\x13.filager.EndRequest\x1a\x14.filager.EndResponse\x12\x41\n\x0cStartReading\x12\x19.filager.StartReadRequest\x1a\x16.filager.StartResponseB\x10Z\x0egen/go/filagerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1a\x66ilager/file_manager.proto\x12\x07\x66ilager\"_\n\x10StartReadRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12$\n\tfile_type\x18\x03 \x01(\x0e\x32\x11.filager.FileType\"s\n\x11StartWriteRequest\x12\x11\n\tfile_path\x18\x01 \x01(\t\x12\x12\n\nchunk_size\x18\x02 \x01(\x04\x12\x11\n\tfile_size\x18\x03 \x01(\x04\x12$\n\tfile_type\x18\x04 \x01(\x0e\x32\x11.filager.FileType\"\x1d\n\rStartResponse\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\"+\n\nWriteChunk\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\"\x1b\n\x08GetChunk\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\x0c\"\x1d\n\rWriteResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\"1\n\x0bReadRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\x14\n\x0c\x63hunk_number\x18\x02 \x01(\x04\"Q\n\nEndRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tauthor_id\x18\x04 \x01(\x04\"\x1b\n\x0b\x45ndResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05*3\n\x08\x46ileType\x12\x0e\n\nUNDEFIGNED\x10\x00\x12\x0c\n\x08\x44OCUMENT\x10\x01\x12\t\n\x05IMAGE\x10\x02\x32\xc6\x02\n\x12\x46ileManagerService\x12\x42\n\x0cStartSending\x12\x1a.filager.StartWriteRequest\x1a\x16.filager.StartResponse\x12\x38\n\tSendChunk\x12\x13.filager.WriteChunk\x1a\x16.filager.WriteResponse\x12\x34\n\tReadChunk\x12\x14.filager.ReadRequest\x1a\x11.filager.GetChunk\x12\x39\n\x0c\x43loseSending\x12\x13.filager.EndRequest\x1a\x14.filager.EndResponse\x12\x41\n\x0cStartReading\x12\x19.filager.StartReadRequest\x1a\x16.filager.StartResponseB\x10Z\x0egen/go/filagerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,7 +33,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\016gen/go/filager'
   _globals['_FILETYPE']._serialized_start=552
-  _globals['_FILETYPE']._serialized_end=587
+  _globals['_FILETYPE']._serialized_end=603
   _globals['_STARTREADREQUEST']._serialized_start=39
   _globals['_STARTREADREQUEST']._serialized_end=134
   _globals['_STARTWRITEREQUEST']._serialized_start=136
@@ -52,6 +52,6 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ENDREQUEST']._serialized_end=521
   _globals['_ENDRESPONSE']._serialized_start=523
   _globals['_ENDRESPONSE']._serialized_end=550
-  _globals['_FILEMANAGERSERVICE']._serialized_start=590
-  _globals['_FILEMANAGERSERVICE']._serialized_end=916
+  _globals['_FILEMANAGERSERVICE']._serialized_start=606
+  _globals['_FILEMANAGERSERVICE']._serialized_end=932
 # @@protoc_insertion_point(module_scope)

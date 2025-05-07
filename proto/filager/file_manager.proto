@@ -47,7 +47,8 @@ message WriteResponse {
 }
 
 message ReadRequest {
-    int32 uuid = 1;
+    uint64 uuid = 1;
+    uint64 chunk_number = 2;
 }
 
 message EndRequest {

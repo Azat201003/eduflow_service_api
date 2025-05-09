@@ -16,18 +16,24 @@ message Id {
 }
 
 message Summary {
-    Id id = 1;
+    uint64 id = 1;
     string title = 2;
     string description = 3;
     string file_path = 4;
-    Id author_id = 5;
+    uint64 author_id = 5;
     repeated Tag tags = 6;
+}
+
+message Filter {
+    repeated string contains = 1;
+    repeated Tag tags = 2;
+    uint64 author_id = 3;
 }
 
 message Tag {
     string name = 1;
     string color = 2;
-    Id id = 3;
+    uint64 id = 3;
 }
 
 message Page {
@@ -36,6 +42,6 @@ message Page {
 }
 
 message FilterRequest {
-    Summary filter = 1;
+    Filter filter = 1;
     Page page = 2;
 }

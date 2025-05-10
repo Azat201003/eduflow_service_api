@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	UserService_Register_FullMethodName         = "/user.UserService/Register"
-	UserService_Login_FullMethodName            = "/user.UserService/Login"
-	UserService_GetUserById_FullMethodName      = "/user.UserService/GetUserById"
-	UserService_GetUserByToken_FullMethodName   = "/user.UserService/GetUserByToken"
-	UserService_GetFollowersById_FullMethodName = "/user.UserService/GetFollowersById"
+	UserService_Register_FullMethodName          = "/user.UserService/Register"
+	UserService_Login_FullMethodName             = "/user.UserService/Login"
+	UserService_GetUser_FullMethodName           = "/user.UserService/GetUser"
+	UserService_GetUserByToken_FullMethodName    = "/user.UserService/GetUserByToken"
+	UserService_GetFilteredGroups_FullMethodName = "/user.UserService/GetFilteredGroups"
+	UserService_GetGroupById_FullMethodName      = "/user.UserService/GetGroupById"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -32,9 +33,10 @@ const (
 type UserServiceClient interface {
 	Register(ctx context.Context, in *Creditionals, opts ...grpc.CallOption) (*Token, error)
 	Login(ctx context.Context, in *Creditionals, opts ...grpc.CallOption) (*Token, error)
-	GetUserById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*User, error)
+	GetUser(ctx context.Context, in *Id, opts ...grpc.CallOption) (*User, error)
 	GetUserByToken(ctx context.Context, in *Token, opts ...grpc.CallOption) (*User, error)
-	GetFollowersById(ctx context.Context, in *Id, opts ...grpc.CallOption) (UserService_GetFollowersByIdClient, error)
+	GetFilteredGroups(ctx context.Context, in *FilterRequest, opts ...grpc.CallOption) (UserService_GetFilteredGroupsClient, error)
+	GetGroupById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Group, error)
 }
 
 type userServiceClient struct {
@@ -65,10 +67,10 @@ func (c *userServiceClient) Login(ctx context.Context, in *Creditionals, opts ..
 	return out, nil
 }
 
-func (c *userServiceClient) GetUserById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*User, error) {
+func (c *userServiceClient) GetUser(ctx context.Context, in *Id, opts ...grpc.CallOption) (*User, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(User)
-	err := c.cc.Invoke(ctx, UserService_GetUserById_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_GetUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,13 +87,13 @@ func (c *userServiceClient) GetUserByToken(ctx context.Context, in *Token, opts 
 	return out, nil
 }
 
-func (c *userServiceClient) GetFollowersById(ctx context.Context, in *Id, opts ...grpc.CallOption) (UserService_GetFollowersByIdClient, error) {
+func (c *userServiceClient) GetFilteredGroups(ctx context.Context, in *FilterRequest, opts ...grpc.CallOption) (UserService_GetFilteredGroupsClient, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &UserService_ServiceDesc.Streams[0], UserService_GetFollowersById_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &UserService_ServiceDesc.Streams[0], UserService_GetFilteredGroups_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &userServiceGetFollowersByIdClient{ClientStream: stream}
+	x := &userServiceGetFilteredGroupsClient{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -101,21 +103,31 @@ func (c *userServiceClient) GetFollowersById(ctx context.Context, in *Id, opts .
 	return x, nil
 }
 
-type UserService_GetFollowersByIdClient interface {
+type UserService_GetFilteredGroupsClient interface {
 	Recv() (*User, error)
 	grpc.ClientStream
 }
 
-type userServiceGetFollowersByIdClient struct {
+type userServiceGetFilteredGroupsClient struct {
 	grpc.ClientStream
 }
 
-func (x *userServiceGetFollowersByIdClient) Recv() (*User, error) {
+func (x *userServiceGetFilteredGroupsClient) Recv() (*User, error) {
 	m := new(User)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
+}
+
+func (c *userServiceClient) GetGroupById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Group, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Group)
+	err := c.cc.Invoke(ctx, UserService_GetGroupById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 // UserServiceServer is the server API for UserService service.
@@ -124,9 +136,10 @@ func (x *userServiceGetFollowersByIdClient) Recv() (*User, error) {
 type UserServiceServer interface {
 	Register(context.Context, *Creditionals) (*Token, error)
 	Login(context.Context, *Creditionals) (*Token, error)
-	GetUserById(context.Context, *Id) (*User, error)
+	GetUser(context.Context, *Id) (*User, error)
 	GetUserByToken(context.Context, *Token) (*User, error)
-	GetFollowersById(*Id, UserService_GetFollowersByIdServer) error
+	GetFilteredGroups(*FilterRequest, UserService_GetFilteredGroupsServer) error
+	GetGroupById(context.Context, *Id) (*Group, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -140,14 +153,17 @@ func (UnimplementedUserServiceServer) Register(context.Context, *Creditionals) (
 func (UnimplementedUserServiceServer) Login(context.Context, *Creditionals) (*Token, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedUserServiceServer) GetUserById(context.Context, *Id) (*User, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
+func (UnimplementedUserServiceServer) GetUser(context.Context, *Id) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
 func (UnimplementedUserServiceServer) GetUserByToken(context.Context, *Token) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByToken not implemented")
 }
-func (UnimplementedUserServiceServer) GetFollowersById(*Id, UserService_GetFollowersByIdServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetFollowersById not implemented")
+func (UnimplementedUserServiceServer) GetFilteredGroups(*FilterRequest, UserService_GetFilteredGroupsServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetFilteredGroups not implemented")
+}
+func (UnimplementedUserServiceServer) GetGroupById(context.Context, *Id) (*Group, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGroupById not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -198,20 +214,20 @@ func _UserService_Login_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Id)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).GetUserById(ctx, in)
+		return srv.(UserServiceServer).GetUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_GetUserById_FullMethodName,
+		FullMethod: UserService_GetUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetUserById(ctx, req.(*Id))
+		return srv.(UserServiceServer).GetUser(ctx, req.(*Id))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -234,25 +250,43 @@ func _UserService_GetUserByToken_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_GetFollowersById_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Id)
+func _UserService_GetFilteredGroups_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(FilterRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(UserServiceServer).GetFollowersById(m, &userServiceGetFollowersByIdServer{ServerStream: stream})
+	return srv.(UserServiceServer).GetFilteredGroups(m, &userServiceGetFilteredGroupsServer{ServerStream: stream})
 }
 
-type UserService_GetFollowersByIdServer interface {
+type UserService_GetFilteredGroupsServer interface {
 	Send(*User) error
 	grpc.ServerStream
 }
 
-type userServiceGetFollowersByIdServer struct {
+type userServiceGetFilteredGroupsServer struct {
 	grpc.ServerStream
 }
 
-func (x *userServiceGetFollowersByIdServer) Send(m *User) error {
+func (x *userServiceGetFilteredGroupsServer) Send(m *User) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _UserService_GetGroupById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Id)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetGroupById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetGroupById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetGroupById(ctx, req.(*Id))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
@@ -271,18 +305,22 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_Login_Handler,
 		},
 		{
-			MethodName: "GetUserById",
-			Handler:    _UserService_GetUserById_Handler,
+			MethodName: "GetUser",
+			Handler:    _UserService_GetUser_Handler,
 		},
 		{
 			MethodName: "GetUserByToken",
 			Handler:    _UserService_GetUserByToken_Handler,
 		},
+		{
+			MethodName: "GetGroupById",
+			Handler:    _UserService_GetGroupById_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetFollowersById",
-			Handler:       _UserService_GetFollowersById_Handler,
+			StreamName:    "GetFilteredGroups",
+			Handler:       _UserService_GetFilteredGroups_Handler,
 			ServerStreams: true,
 		},
 	},

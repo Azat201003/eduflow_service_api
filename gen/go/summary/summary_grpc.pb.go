@@ -32,7 +32,7 @@ const (
 type SummaryServiceClient interface {
 	GetSummaryById(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Summary, error)
 	GetFilteredSummaries(ctx context.Context, in *FilterRequest, opts ...grpc.CallOption) (SummaryService_GetFilteredSummariesClient, error)
-	CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Id, error)
+	CreateSummary(ctx context.Context, in *CreateSummaryRequest, opts ...grpc.CallOption) (*Id, error)
 	DeleteSummary(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Summary, error)
 	UpdateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Summary, error)
 }
@@ -88,7 +88,7 @@ func (x *summaryServiceGetFilteredSummariesClient) Recv() (*Summary, error) {
 	return m, nil
 }
 
-func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *Summary, opts ...grpc.CallOption) (*Id, error) {
+func (c *summaryServiceClient) CreateSummary(ctx context.Context, in *CreateSummaryRequest, opts ...grpc.CallOption) (*Id, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Id)
 	err := c.cc.Invoke(ctx, SummaryService_CreateSummary_FullMethodName, in, out, cOpts...)
@@ -124,7 +124,7 @@ func (c *summaryServiceClient) UpdateSummary(ctx context.Context, in *Summary, o
 type SummaryServiceServer interface {
 	GetSummaryById(context.Context, *Id) (*Summary, error)
 	GetFilteredSummaries(*FilterRequest, SummaryService_GetFilteredSummariesServer) error
-	CreateSummary(context.Context, *Summary) (*Id, error)
+	CreateSummary(context.Context, *CreateSummaryRequest) (*Id, error)
 	DeleteSummary(context.Context, *Id) (*Summary, error)
 	UpdateSummary(context.Context, *Summary) (*Summary, error)
 	mustEmbedUnimplementedSummaryServiceServer()
@@ -140,7 +140,7 @@ func (UnimplementedSummaryServiceServer) GetSummaryById(context.Context, *Id) (*
 func (UnimplementedSummaryServiceServer) GetFilteredSummaries(*FilterRequest, SummaryService_GetFilteredSummariesServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetFilteredSummaries not implemented")
 }
-func (UnimplementedSummaryServiceServer) CreateSummary(context.Context, *Summary) (*Id, error) {
+func (UnimplementedSummaryServiceServer) CreateSummary(context.Context, *CreateSummaryRequest) (*Id, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSummary not implemented")
 }
 func (UnimplementedSummaryServiceServer) DeleteSummary(context.Context, *Id) (*Summary, error) {
@@ -202,7 +202,7 @@ func (x *summaryServiceGetFilteredSummariesServer) Send(m *Summary) error {
 }
 
 func _SummaryService_CreateSummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Summary)
+	in := new(CreateSummaryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -214,7 +214,7 @@ func _SummaryService_CreateSummary_Handler(srv interface{}, ctx context.Context,
 		FullMethod: SummaryService_CreateSummary_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SummaryServiceServer).CreateSummary(ctx, req.(*Summary))
+		return srv.(SummaryServiceServer).CreateSummary(ctx, req.(*CreateSummaryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

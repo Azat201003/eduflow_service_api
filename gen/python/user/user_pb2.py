@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"2\n\x0c\x43reditionals\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\x04\"@\n\x04User\x12\x14\n\x02id\x18\x01 \x01(\x0b\x32\x08.user.Id\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x10\n\x08is_staff\x18\x04 \x01(\x08\"\x16\n\x05Token\x12\r\n\x05token\x18\x01 \x01(\t2\xe0\x01\n\x0bUserService\x12+\n\x08Register\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12(\n\x05Login\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12#\n\x0bGetUserById\x12\x08.user.Id\x1a\n.user.User\x12)\n\x0eGetUserByToken\x12\x0b.user.Token\x1a\n.user.User\x12*\n\x10GetFollowersById\x12\x08.user.Id\x1a\n.user.User0\x01\x42\rZ\x0bgen/go/userb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fuser/user.proto\x12\x04user\"G\n\rFilterRequest\x12\x1c\n\x06\x66ilter\x18\x01 \x01(\x0b\x32\x0c.user.Filter\x12\x18\n\x04page\x18\x02 \x01(\x0b\x32\n.user.Page\"$\n\x04Page\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x0e\n\x06number\x18\x02 \x01(\r\"D\n\x06\x46ilter\x12\x10\n\x08\x63ontains\x18\x01 \x03(\t\x12\x0e\n\x06\x61\x64mins\x18\x02 \x03(\x04\x12\x18\n\x04type\x18\x03 \x01(\x0e\x32\n.user.Type\"2\n\x0c\x43reditionals\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\x04\"H\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x10\n\x08is_staff\x18\x04 \x01(\x08\x12\x10\n\x08\x66olowers\x18\x05 \x03(\x04\"\x16\n\x05Token\x12\r\n\x05token\x18\x01 \x01(\t\"\x97\x01\n\x05Group\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\twhitelist\x18\x04 \x03(\x04\x12\x11\n\tblacklist\x18\x05 \x03(\x04\x12\x0f\n\x07members\x18\x06 \x03(\x04\x12\x0e\n\x06\x61\x64mins\x18\x07 \x03(\x04\x12\x18\n\x04type\x18\x08 \x01(\x0e\x32\n.user.Type*\x1f\n\x04Type\x12\n\n\x06PUBLIC\x10\x00\x12\x0b\n\x07PRIVATE\x10\x01\x32\x8f\x02\n\x0bUserService\x12+\n\x08Register\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12(\n\x05Login\x12\x12.user.Creditionals\x1a\x0b.user.Token\x12\x1f\n\x07GetUser\x12\x08.user.Id\x1a\n.user.User\x12)\n\x0eGetUserByToken\x12\x0b.user.Token\x1a\n.user.User\x12\x36\n\x11GetFilteredGroups\x12\x13.user.FilterRequest\x1a\n.user.User0\x01\x12%\n\x0cGetGroupById\x12\x08.user.Id\x1a\x0b.user.GroupB\rZ\x0bgen/go/userb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,14 +32,24 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'user.user_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\013gen/go/user'
-  _globals['_CREDITIONALS']._serialized_start=25
-  _globals['_CREDITIONALS']._serialized_end=75
-  _globals['_ID']._serialized_start=77
-  _globals['_ID']._serialized_end=93
-  _globals['_USER']._serialized_start=95
-  _globals['_USER']._serialized_end=159
-  _globals['_TOKEN']._serialized_start=161
-  _globals['_TOKEN']._serialized_end=183
-  _globals['_USERSERVICE']._serialized_start=186
-  _globals['_USERSERVICE']._serialized_end=410
+  _globals['_TYPE']._serialized_start=528
+  _globals['_TYPE']._serialized_end=559
+  _globals['_FILTERREQUEST']._serialized_start=25
+  _globals['_FILTERREQUEST']._serialized_end=96
+  _globals['_PAGE']._serialized_start=98
+  _globals['_PAGE']._serialized_end=134
+  _globals['_FILTER']._serialized_start=136
+  _globals['_FILTER']._serialized_end=204
+  _globals['_CREDITIONALS']._serialized_start=206
+  _globals['_CREDITIONALS']._serialized_end=256
+  _globals['_ID']._serialized_start=258
+  _globals['_ID']._serialized_end=274
+  _globals['_USER']._serialized_start=276
+  _globals['_USER']._serialized_end=348
+  _globals['_TOKEN']._serialized_start=350
+  _globals['_TOKEN']._serialized_end=372
+  _globals['_GROUP']._serialized_start=375
+  _globals['_GROUP']._serialized_end=526
+  _globals['_USERSERVICE']._serialized_start=562
+  _globals['_USERSERVICE']._serialized_end=833
 # @@protoc_insertion_point(module_scope)

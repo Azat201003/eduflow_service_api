@@ -6,13 +6,18 @@ option go_package = "gen/go/summary";
 service SummaryService {
     rpc GetSummaryById(Id) returns (Summary);
     rpc GetFilteredSummaries(FilterRequest) returns (stream Summary);
-    rpc CreateSummary(Summary) returns (Id);
+    rpc CreateSummary(CreateSummaryRequest) returns (Id);
     rpc DeleteSummary(Id) returns (Summary);
     rpc UpdateSummary(Summary) returns (Summary); // ! You need to send the id in the request and what you want to change. It will return the summary that was before the change
 }
 
 message Id {
     uint64 id = 1;
+}
+
+message CreateSummaryRequest {
+    Summary summary = 1;
+    repeated uint64 groups = 2;
 }
 
 message Summary {

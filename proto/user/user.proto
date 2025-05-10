@@ -7,9 +7,32 @@ option go_package = "gen/go/user";
 service UserService {
     rpc Register(Creditionals) returns (Token); // returns token
     rpc Login(Creditionals) returns (Token); // returns token
-    rpc GetUserById(Id) returns (User);
+    rpc GetUser(Id) returns (User);
     rpc GetUserByToken(Token) returns (User);
-    rpc GetFollowersById(Id) returns (stream User);
+    rpc GetFilteredGroups(FilterRequest) returns (stream User);
+    rpc GetGroupById(Id) returns (Group);
+    // TODO add admin managing of groups
+}
+
+message FilterRequest {
+    Filter filter = 1;
+    Page page = 2;
+}
+
+message Page {
+    uint32 size = 1;
+    uint32 number = 2;
+}
+
+message Filter {
+    repeated string contains = 1;
+    repeated uint64 admins = 2;
+    Type type = 3;
+}
+
+enum Type {
+    PUBLIC = 0;
+    PRIVATE = 1;
 }
 
 message Creditionals {
@@ -22,11 +45,23 @@ message Id {
 }
 
 message User {
-    Id id = 1;
+    uint64 id = 1;
     string username = 2;
     bool is_staff = 4;
+    repeated uint64 folowers = 5;
 }
 
 message Token {
     string token = 1;
+}
+
+message Group {
+    uint64 id = 1;
+    string name = 2;
+    string description = 3;
+    repeated uint64 whitelist = 4;
+    repeated uint64 blacklist = 5;
+    repeated uint64 members = 6;
+    repeated uint64 admins = 7;
+    Type type = 8;
 }

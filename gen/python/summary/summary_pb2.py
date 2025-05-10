@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15summary/summary.proto\x12\x07summary\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\x04\"{\n\x07Summary\x12\n\n\x02id\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tfile_path\x18\x04 \x01(\t\x12\x11\n\tauthor_id\x18\x05 \x01(\x04\x12\x1a\n\x04tags\x18\x06 \x03(\x0b\x32\x0c.summary.Tag\"I\n\x06\x46ilter\x12\x10\n\x08\x63ontains\x18\x01 \x03(\t\x12\x1a\n\x04tags\x18\x02 \x03(\x0b\x32\x0c.summary.Tag\x12\x11\n\tauthor_id\x18\x03 \x01(\x04\".\n\x03Tag\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x63olor\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\x04\"$\n\x04Page\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x0e\n\x06number\x18\x02 \x01(\r\"M\n\rFilterRequest\x12\x1f\n\x06\x66ilter\x18\x01 \x01(\x0b\x32\x0f.summary.Filter\x12\x1b\n\x04page\x18\x02 \x01(\x0b\x32\r.summary.Page2\x9a\x02\n\x0eSummaryService\x12/\n\x0eGetSummaryById\x12\x0b.summary.Id\x1a\x10.summary.Summary\x12\x42\n\x14GetFilteredSummaries\x12\x16.summary.FilterRequest\x1a\x10.summary.Summary0\x01\x12.\n\rCreateSummary\x12\x10.summary.Summary\x1a\x0b.summary.Id\x12.\n\rDeleteSummary\x12\x0b.summary.Id\x1a\x10.summary.Summary\x12\x33\n\rUpdateSummary\x12\x10.summary.Summary\x1a\x10.summary.SummaryB\x10Z\x0egen/go/summaryb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15summary/summary.proto\x12\x07summary\"\x10\n\x02Id\x12\n\n\x02id\x18\x01 \x01(\x04\"I\n\x14\x43reateSummaryRequest\x12!\n\x07summary\x18\x01 \x01(\x0b\x32\x10.summary.Summary\x12\x0e\n\x06groups\x18\x02 \x03(\x04\"{\n\x07Summary\x12\n\n\x02id\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x11\n\tfile_path\x18\x04 \x01(\t\x12\x11\n\tauthor_id\x18\x05 \x01(\x04\x12\x1a\n\x04tags\x18\x06 \x03(\x0b\x32\x0c.summary.Tag\"I\n\x06\x46ilter\x12\x10\n\x08\x63ontains\x18\x01 \x03(\t\x12\x1a\n\x04tags\x18\x02 \x03(\x0b\x32\x0c.summary.Tag\x12\x11\n\tauthor_id\x18\x03 \x01(\x04\".\n\x03Tag\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x63olor\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\x04\"$\n\x04Page\x12\x0c\n\x04size\x18\x01 \x01(\r\x12\x0e\n\x06number\x18\x02 \x01(\r\"M\n\rFilterRequest\x12\x1f\n\x06\x66ilter\x18\x01 \x01(\x0b\x32\x0f.summary.Filter\x12\x1b\n\x04page\x18\x02 \x01(\x0b\x32\r.summary.Page2\xa7\x02\n\x0eSummaryService\x12/\n\x0eGetSummaryById\x12\x0b.summary.Id\x1a\x10.summary.Summary\x12\x42\n\x14GetFilteredSummaries\x12\x16.summary.FilterRequest\x1a\x10.summary.Summary0\x01\x12;\n\rCreateSummary\x12\x1d.summary.CreateSummaryRequest\x1a\x0b.summary.Id\x12.\n\rDeleteSummary\x12\x0b.summary.Id\x1a\x10.summary.Summary\x12\x33\n\rUpdateSummary\x12\x10.summary.Summary\x1a\x10.summary.SummaryB\x10Z\x0egen/go/summaryb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,16 +34,18 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._serialized_options = b'Z\016gen/go/summary'
   _globals['_ID']._serialized_start=34
   _globals['_ID']._serialized_end=50
-  _globals['_SUMMARY']._serialized_start=52
-  _globals['_SUMMARY']._serialized_end=175
-  _globals['_FILTER']._serialized_start=177
-  _globals['_FILTER']._serialized_end=250
-  _globals['_TAG']._serialized_start=252
-  _globals['_TAG']._serialized_end=298
-  _globals['_PAGE']._serialized_start=300
-  _globals['_PAGE']._serialized_end=336
-  _globals['_FILTERREQUEST']._serialized_start=338
-  _globals['_FILTERREQUEST']._serialized_end=415
-  _globals['_SUMMARYSERVICE']._serialized_start=418
-  _globals['_SUMMARYSERVICE']._serialized_end=700
+  _globals['_CREATESUMMARYREQUEST']._serialized_start=52
+  _globals['_CREATESUMMARYREQUEST']._serialized_end=125
+  _globals['_SUMMARY']._serialized_start=127
+  _globals['_SUMMARY']._serialized_end=250
+  _globals['_FILTER']._serialized_start=252
+  _globals['_FILTER']._serialized_end=325
+  _globals['_TAG']._serialized_start=327
+  _globals['_TAG']._serialized_end=373
+  _globals['_PAGE']._serialized_start=375
+  _globals['_PAGE']._serialized_end=411
+  _globals['_FILTERREQUEST']._serialized_start=413
+  _globals['_FILTERREQUEST']._serialized_end=490
+  _globals['_SUMMARYSERVICE']._serialized_start=493
+  _globals['_SUMMARYSERVICE']._serialized_end=788
 # @@protoc_insertion_point(module_scope)

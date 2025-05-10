@@ -46,7 +46,7 @@ class SummaryServiceStub(object):
                 _registered_method=True)
         self.CreateSummary = channel.unary_unary(
                 '/summary.SummaryService/CreateSummary',
-                request_serializer=summary_dot_summary__pb2.Summary.SerializeToString,
+                request_serializer=summary_dot_summary__pb2.CreateSummaryRequest.SerializeToString,
                 response_deserializer=summary_dot_summary__pb2.Id.FromString,
                 _registered_method=True)
         self.DeleteSummary = channel.unary_unary(
@@ -110,7 +110,7 @@ def add_SummaryServiceServicer_to_server(servicer, server):
             ),
             'CreateSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSummary,
-                    request_deserializer=summary_dot_summary__pb2.Summary.FromString,
+                    request_deserializer=summary_dot_summary__pb2.CreateSummaryRequest.FromString,
                     response_serializer=summary_dot_summary__pb2.Id.SerializeToString,
             ),
             'DeleteSummary': grpc.unary_unary_rpc_method_handler(
@@ -203,7 +203,7 @@ class SummaryService(object):
             request,
             target,
             '/summary.SummaryService/CreateSummary',
-            summary_dot_summary__pb2.Summary.SerializeToString,
+            summary_dot_summary__pb2.CreateSummaryRequest.SerializeToString,
             summary_dot_summary__pb2.Id.FromString,
             options,
             channel_credentials,

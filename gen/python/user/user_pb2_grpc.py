@@ -44,8 +44,8 @@ class UserServiceStub(object):
                 request_serializer=user_dot_user__pb2.Creditionals.SerializeToString,
                 response_deserializer=user_dot_user__pb2.Token.FromString,
                 _registered_method=True)
-        self.GetUserById = channel.unary_unary(
-                '/user.UserService/GetUserById',
+        self.GetUser = channel.unary_unary(
+                '/user.UserService/GetUser',
                 request_serializer=user_dot_user__pb2.Id.SerializeToString,
                 response_deserializer=user_dot_user__pb2.User.FromString,
                 _registered_method=True)
@@ -54,10 +54,15 @@ class UserServiceStub(object):
                 request_serializer=user_dot_user__pb2.Token.SerializeToString,
                 response_deserializer=user_dot_user__pb2.User.FromString,
                 _registered_method=True)
-        self.GetFollowersById = channel.unary_stream(
-                '/user.UserService/GetFollowersById',
-                request_serializer=user_dot_user__pb2.Id.SerializeToString,
+        self.GetFilteredGroups = channel.unary_stream(
+                '/user.UserService/GetFilteredGroups',
+                request_serializer=user_dot_user__pb2.FilterRequest.SerializeToString,
                 response_deserializer=user_dot_user__pb2.User.FromString,
+                _registered_method=True)
+        self.GetGroupById = channel.unary_unary(
+                '/user.UserService/GetGroupById',
+                request_serializer=user_dot_user__pb2.Id.SerializeToString,
+                response_deserializer=user_dot_user__pb2.Group.FromString,
                 _registered_method=True)
 
 
@@ -78,7 +83,7 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetUserById(self, request, context):
+    def GetUser(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -90,8 +95,15 @@ class UserServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetFollowersById(self, request, context):
+    def GetFilteredGroups(self, request, context):
         """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetGroupById(self, request, context):
+        """TODO add admin managing of groups
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -109,8 +121,8 @@ def add_UserServiceServicer_to_server(servicer, server):
                     request_deserializer=user_dot_user__pb2.Creditionals.FromString,
                     response_serializer=user_dot_user__pb2.Token.SerializeToString,
             ),
-            'GetUserById': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetUserById,
+            'GetUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUser,
                     request_deserializer=user_dot_user__pb2.Id.FromString,
                     response_serializer=user_dot_user__pb2.User.SerializeToString,
             ),
@@ -119,10 +131,15 @@ def add_UserServiceServicer_to_server(servicer, server):
                     request_deserializer=user_dot_user__pb2.Token.FromString,
                     response_serializer=user_dot_user__pb2.User.SerializeToString,
             ),
-            'GetFollowersById': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetFollowersById,
-                    request_deserializer=user_dot_user__pb2.Id.FromString,
+            'GetFilteredGroups': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetFilteredGroups,
+                    request_deserializer=user_dot_user__pb2.FilterRequest.FromString,
                     response_serializer=user_dot_user__pb2.User.SerializeToString,
+            ),
+            'GetGroupById': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetGroupById,
+                    request_deserializer=user_dot_user__pb2.Id.FromString,
+                    response_serializer=user_dot_user__pb2.Group.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -190,7 +207,7 @@ class UserService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetUserById(request,
+    def GetUser(request,
             target,
             options=(),
             channel_credentials=None,
@@ -203,7 +220,7 @@ class UserService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/user.UserService/GetUserById',
+            '/user.UserService/GetUser',
             user_dot_user__pb2.Id.SerializeToString,
             user_dot_user__pb2.User.FromString,
             options,
@@ -244,7 +261,7 @@ class UserService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetFollowersById(request,
+    def GetFilteredGroups(request,
             target,
             options=(),
             channel_credentials=None,
@@ -257,9 +274,36 @@ class UserService(object):
         return grpc.experimental.unary_stream(
             request,
             target,
-            '/user.UserService/GetFollowersById',
-            user_dot_user__pb2.Id.SerializeToString,
+            '/user.UserService/GetFilteredGroups',
+            user_dot_user__pb2.FilterRequest.SerializeToString,
             user_dot_user__pb2.User.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetGroupById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/user.UserService/GetGroupById',
+            user_dot_user__pb2.Id.SerializeToString,
+            user_dot_user__pb2.Group.FromString,
             options,
             channel_credentials,
             insecure,
